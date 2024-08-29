@@ -1,6 +1,6 @@
 # Personal Portfolio and AI Chatbot Website
 
-<img src="project-images/project_1.png" alt="Öneri Sistemi" width="825" height="380">
+<img src="images/project_1.png" alt="Öneri Sistemi" width="825" height="380">
 
 ## 📜 Project Overview
 
