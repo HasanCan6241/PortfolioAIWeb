@@ -1,0 +1,158 @@
+/* Chat butonu ve konumu */
+.chat-button-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.chat-button {
+    width: 60px;
+    height: 60px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s;
+}
+
+.chat-button:hover {
+    background-color: #0056b3;
+}
+
+.chat-button svg {
+    fill: #ffffff;
+}
+
+/* Card header içindeki butonun en sağda görünmesini sağlamak için */
+.card-header {
+    display: flex;
+    justify-content: space-between; /* Başlık ve buton arasında yer açar */
+    align-items: center; /* Dikey hizalamayı sağlar */
+}
+
+.card-header .btn-close {
+    margin-left: auto; /* Butonu sağa taşır */
+}
+
+/* Chat penceresi */
+.chat-window {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    max-width: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.chat-window .card-header {
+    background-color: #007bff;
+    border-bottom: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.chat-window .card-body {
+    padding: 15px;
+    background-color: #f8f9fa;
+    overflow-y: auto;
+}
+
+.chat-window .icon-container {
+    width: 60px;
+    height: 60px;
+    border-radius: 85%;
+    overflow: hidden;
+    background-color: #ffffff;
+    border: 2px solid #007bff;
+}
+/* Icon Container */
+.icon-container {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #ffffff;
+    border: 2px solid #007bff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* User Icon */
+.user-icon {
+    width: 100%;
+    height: auto;
+}
+
+/* Robot Icon */
+.robot-icon {
+    width: 100%;
+    height: auto;
+}
+
+/* Stil düzenlemeleri yapmak için */
+#sendMessage {
+    background-color: #007bff; /* Mavi renk */
+    border: none;
+    color: #ffffff;
+    padding: 5px 10px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+}
+
+#sendMessage .fas {
+    font-size: 1em; /* İkon boyutu */
+}
+
+/* Hover efekti */
+#sendMessage:hover {
+    background-color: #0056b3; /* Daha koyu mavi renk hover için */
+}
+
+#sendMessage:focus {
+    outline: none; /* Odaklanma kenar çizgisi yok */
+}
+
+.chat-window {
+    position: fixed; /* Sabit konumlandırma ile ekranın her zaman üstünde kalmasını sağlar */
+    bottom: 85px; /* Ekranın alt kısmında 20px boşluk bırakır */
+    right: 20px; /* Ekranın sağ kısmında 20px boşluk bırakır */
+    width: 360px; /* Chat pencerenizin genişliği */
+    max-width: 100%; /* Genişlik ekran boyutuna göre ayarlanabilir */
+    z-index: 1050; /* Bootstrap'ın z-index değerinin üstünde olmasını sağlar */
+}
+
+.chat-window .message-container {
+    max-width: 70%;
+    background-color: #ffffff;
+    padding: 10px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.chat-window .message-container p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #333333;
+}
+
+.chat-window .card-footer {
+    padding: 10px;
+    border-top: none;
+    background-color: #f8f9fa;
+}
+
+.chat-window .form-control {
+    border-radius: 20px;
+    border-color: #ced4da;
+    box-shadow: none;
+}

@@ -1,0 +1,394 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+header .navbar {
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+header .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+}
+
+header .nav-item {
+    text-align: center;
+    flex: 1;
+}
+
+header .nav-link {
+    color: #333;
+    font-weight: 500;
+    padding: 15px 20px;
+}
+
+header .nav-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.profile-img-header {
+    border: 5px solid #ddd;
+}
+
+/* Genel section stili */
+section {
+    padding: 60px 0;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Hafif bir gölge efekti */
+}
+
+@media (min-width: 768px) {
+    .social-icons {
+        justify-content: center; /* Daha geniş ekranlarda da ortalar */
+    }
+}
+
+/* Hakkımda, Projelerim ve Sertifikalarım bölümlerinin hizalanması */
+#about, #certifications {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#about .container{
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+/* Başarılarım başlığı */
+#achievements h2 {
+    font-size: 2.5rem;
+    color: #333; /* Başlık rengi */
+    font-weight: 700; /* Kalın yazı */
+}
+
+/* Başarılar bölümündeki başarı elemanları */
+#achievements .bg-white {
+    border: 1px solid #ddd; /* Hafif gri sınır */
+    border-radius: 0.5rem; /* Köşe yuvarlama */
+    background-color: #fff; /* Arka plan rengi */
+    transition: box-shadow 0.3s ease, transform 0.3s ease; /* Hover efekti */
+    /* Gölge efekti */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* İlk değer yatay ofset, ikincisi dikey ofset, üçüncüsü bulanıklık, dördüncüsü renk */
+}
+#achievements .bg-white:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8); /* Hover durumunda daha belirgin gölge */
+    transform: translateY(-5px); /* Hover hareket efekti */
+}
+
+
+/* Logo ve yazı arasındaki boşluk */
+#achievements .me-5 {
+    margin-right: 3rem; /* Logo ve yazı arasındaki boşluğu artırır */
+}
+
+/* Başlık ve metin stili */
+#achievements h4 {
+    font-size: 1.4rem;
+    color: #007bff; /* Başlık rengi */
+    margin-bottom: 0.5rem;
+}
+#achievements p {
+    font-size: 1rem;
+    color: #6c757d; /* Metin rengi */
+    margin-bottom: 0;
+}
+
+#certifications .container{
+    max-width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+#certifications .col-md-4 {
+    padding: 15px; /* Her bir kolonun etrafında boşluk oluşturur */
+}
+#certifications img {
+    display: block; /* Resimleri blok olarak göstermek için */
+    margin: 0 auto; /* Resimleri ortalamak için */
+    border: 2px solid #ddd; /* Opsiyonel: Resim etrafında ince bir sınır ekler */
+}
+#skills img {
+    display: block; /* Resimleri blok olarak göstermek için */
+    margin: 0 auto; /* Resimleri ortalamak için */
+    border: 2px solid #ddd; /* Opsiyonel: Resim etrafında ince bir sınır ekler */
+}
+
+section h2 {
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+    color: black;
+}
+
+section p {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+/* Yeni text-container stili */
+.text-container {
+    display: flex;
+    flex-wrap: wrap; /* İçeriğin taşması durumunda yeni satıra geçmesini sağlar */
+    align-items: center;
+}
+
+.text-container p {
+    margin: 0;
+}
+
+/* Skill kartlarının stili */
+.card {
+    border: none; /* Kart kenarlıklarını kaldırır */
+    border-radius: 8px; /* Köşeleri yuvarlatır */
+    transition: box-shadow 0.3s ease; /* Gölgenin geçiş efektini ekler */
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hover efektiyle gölge ekler */
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Projeler bölümü kart tasarımı */
+#projects .card {
+    border-radius: 20px;
+    background-color: #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+#projects .card-title {
+    font-size: 1.3rem;
+    color: black;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+#projects .card-text {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 20px;
+}
+
+#projects .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Hover sırasında gölge efekti */
+}
+
+#projects .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-color: #0056b3;
+}
+
+#projects .btn-primary {
+    background-color: #0056b3;
+    border-color: #0056b3;
+    font-weight: bold;
+    padding: 10px 20px;
+}
+
+#projects .btn-primary:hover {
+    background-color: #004494;
+    border-color: #004494;
+}
+
+#education {
+    padding: 50px 0;
+}
+
+#education h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+#education .row {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+#education h3 {
+    font-size: 1.75rem;
+    color: black;
+}
+
+#education h4 {
+    font-size: 1.25rem;
+    color: #6c757d;
+}
+
+#education p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #555;
+}
+
+#education .badge {
+    font-size: 1rem;
+    padding: 10px 15px;
+    border-radius: 20px;
+}
+
+.btn-primary {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-outline-secondary {
+    border-color: #0056b3;
+    color: #0056b3;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+footer {
+    background-color: #f8f9fa;
+    color: #333;
+    padding: 40px 0;
+    border-top: 1px solid #e3e3e3;
+}
+
+footer .h4 {
+    font-size: 2rem;
+    color: #333;
+}
+
+footer p.lead {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+footer .social-nav .nav-link {
+    color: #333;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+footer .social-nav .nav-link:hover {
+    color: #0056b3;
+}
+
+footer .social-nav .fa {
+    margin-right: 8px;
+}
+
+footer .text-small {
+    font-size: 0.875rem;
+}
+
+footer .text-primary {
+    color: #007bff;
+}
+
+footer .text-primary:hover {
+    text-decoration: underline;
+}
+
+footer .text-secondary {
+    color: #6c757d;
+}
+
+
+.timeline {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    background-color: #0056b3;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3px;
+}
+
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+}
+
+.timeline-item::after {
+    content: ' ';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: -12.5px;
+    background-color: white;
+    border: 4px solid #0056b3;
+    top: 15px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.timeline-item h5 {
+    margin-top: 0;
+    color: #0056b3;
+}
+
+.timeline-item:nth-child(even) {
+    left: 50%;
+}
+
+.timeline-item:nth-child(odd) {
+    left: 0;
+}
+
+.timeline-item:nth-child(even)::after {
+    left: -13px;
+}

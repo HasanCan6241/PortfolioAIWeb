@@ -1,0 +1,1078 @@
+{
+  "intents": [
+    {
+      "tag": "greetings",
+      "patterns": [
+        "Hello!",
+        "Hi!",
+        "Good day!",
+        "How are you?",
+        "Good morning!",
+        "Hello, how are you?",
+        "Greetings!",
+        "Hey, are you there?",
+        "How was your day?",
+        "What's up?"
+      ],
+      "responses": [
+        "Hello! How can I help you?",
+        "Hi! What can I do for you?",
+        "Good day! How can I assist you?",
+        "I'm here! How can I help you today?",
+        "Good morning! What would you like to know?",
+        "Greetings! How may I assist you?",
+        "Hello! Feel free to ask me anything.",
+        "Hi there! How can I assist you?",
+        "Hello! I'm here to help.",
+        "Good day! How can I help?"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Goodbye!",
+        "See you!",
+        "Have a nice day!",
+        "Goodbye!",
+        "Take care!",
+        "See you later!",
+        "I'm leaving!",
+        "I'm leaving, see you later!"
+      ],
+      "responses": [
+        "Goodbye! I'll be here again if you have any more questions.",
+        "See you! Have a nice day.",
+        "Goodbye! I'll be here if you need help.",
+        "Take care! Hope to see you again.",
+        "See you again later! Have a nice day."
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "hours",
+      "patterns": [ "When are you open?", "What are your working hours?", "Working hours", "your working hours" ],
+      "responses": [ "7/24", "We are here 7/24!" ],
+      "context_set": ""
+    },
+    {
+      "tag": "thanks",
+      "patterns": [ "thanks", "thanks", "thank you very much", "that was very helpful", "great, thanks", "thanks for your help" ],
+      "responses": [ "Glad I could help!", "Anytime!", "It was my pleasure!", "I hope I was helpful!", "You're welcome!" ],
+      "context_set": ""
+    },
+    {
+      "tag": "noanswer",
+      "patterns": [ " " ],
+      "responses": [
+        "I'm sorry, I didn't understand you.",
+        "Can you please give me more information?",
+        "I'm not sure I understand you.",
+        "I didn't understand you, if you could give me more information I could help you."
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "about",
+      "patterns": [
+        "Who are you?",
+        "Who are you?",
+        "What do you do on this platform?",
+        "Tell me about yourself?",
+        "What kind of services do you offer?",
+        "Why are you here?",
+        "What is your purpose?"
+      ],
+      "responses": [
+        "I am a chatbot developed based on Hasan Can Çelik's CV. I can answer your questions about my CV.",
+        "I am here to provide information about Hasan Can Çelik's career, projects and competencies.",
+        "I am designed to provide information about Hasan Can Çelik's experiences, projects and competencies.",
+        "My aim is to answer your questions about Hasan Can Çelik's professional life.",
+        "On this platform, I provide information about Hasan Can Çelik's CV and career.",
+        "I am here to provide information about Hasan Can Çelik's professional background and projects.",
+        "I am designed to answer your questions about Hasan Can Çelik's career and skills.",
+        "I am here to provide detailed information about Hasan Can Çelik's CV and experiences.",
+        "My aim is to provide information about Hasan Can Çelik's professional achievements and competencies.",
+        "I am here to guide you about Hasan Can Çelik's career journey and projects."
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "name",
+      "patterns": [
+        "What is your name?",
+        "Who am I talking to?",
+        "What is your name?",
+        "How should I call you?",
+        "Can I know your name?",
+        "What is your name?",
+        "Can you tell me your name?",
+        "What name should I call you?",
+        "Who am I addressing?",
+        "How should I describe you?"
+      ],
+      "responses": [
+        "I am Hasan Can Çelik's chatbot model.",
+        "My name is Hasan Can Çelik's chatbot model.",
+        "I am a model representing Hasan Can Çelik's name.",
+        "My name is designed to provide information about Hasan Can Çelik's career.",
+        "I am a chatbot developed based on Hasan Can Çelik's resume.",
+        "I am Hasan Can Çelik's digital representative.",
+        "You can think of me as Hasan Can Çelik's career assistant.",
+        "I am Hasan Can Çelik's information model.",
+        "I represent Hasan Can Çelik's professional journey.",
+        "My name is created to provide information about Hasan Can Çelik's career."
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "contact",
+      "patterns": [
+        "How can I contact you?",
+        "What are your contact details?",
+        "How can I reach out to you?",
+        "Can I have your contact information?",
+        "What is the best way to contact you?",
+        "Where can I find your contact info?",
+        "How do I get in touch with you?",
+        "What are your communication details?",
+        "Can you share your contact information?",
+        "How can I get in contact with you?"
+      ],
+      "responses": [
+        "You can reach out to me via LinkedIn, GitHub, or email.",
+        "I am available on LinkedIn, GitHub, and email for any inquiries.",
+        "Feel free to contact me through LinkedIn, GitHub, or my email address.",
+        "You can connect with me on LinkedIn, check my projects on GitHub, or email me directly.",
+        "I am accessible via LinkedIn, GitHub, and email for any questions or collaborations.",
+        "For contacting me, you can use LinkedIn, GitHub, or email.",
+        "You can get in touch with me through my LinkedIn, GitHub, or email.",
+        "My contact information includes LinkedIn, GitHub, and my email address.",
+        "You can contact me via LinkedIn, GitHub, or email for more information.",
+        "I am available for contact through LinkedIn, GitHub, and email."
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "Linkedln_contact",
+      "patterns": [
+        "What is your LinkedIn profile?",
+        "What is your LınkedIn address?",  
+        "Can I connect with you on LinkedIn?",
+        "Where can I find you on LinkedIn?",
+        "Do you have a LinkedIn account?",
+        "Can I see your LinkedIn profile?",
+        "What is your LinkedIn URL?",
+        "Where is your LinkedIn profile?",
+        "How can I connect with you on LinkedIn?",
+        "Can you share your LinkedIn profile?",
+        "What is your LinkedIn link?"
+      ],
+      "responses": [
+        "You can connect with me on LinkedIn here: https://www.linkedin.com/in/hasan-can-%C3%A7elik-46950623b.",
+        "Feel free to reach out to me on LinkedIn: https://www.linkedin.com/in/hasan-can-%C3%A7elik-46950623b.",
+        "My LinkedIn profile is available at: https://www.linkedin.com/in/hasan-can-%C3%A7elik-46950623b.",
+        "You can find me on LinkedIn here: https://www.linkedin.com/in/hasan-can-%C3%A7elik-46950623b.",
+        "Connect with me on LinkedIn: https://www.linkedin.com/in/hasan-can-%C3%A7elik-46950623b.",
+        "My LinkedIn profile link is: https://www.linkedin.com/in/hasan-can-%C3%A7elik-46950623b.",
+        "Here is my LinkedIn profile: https://www.linkedin.com/in/hasan-can-%C3%A7elik-46950623b.",
+        "You can find and connect with me on LinkedIn: https://www.linkedin.com/in/hasan-can-%C3%A7elik-46950623b.",
+        "Check out my LinkedIn profile: https://www.linkedin.com/in/hasan-can-%C3%A7elik-46950623b.",
+        "I am available on LinkedIn at: https://www.linkedin.com/in/hasan-can-%C3%A7elik-46950623b."
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "github_contact",
+      "patterns": [
+        "Do you have a GitHub account?",
+        "What is your GitHub profile?",
+        "Can I see your GitHub projects?",
+        "Where can I find your GitHub?",
+        "What is your GitHub link?",
+        "Can you share your GitHub profile?",
+        "What is your GitHub URL?",
+        "Where is your GitHub profile?",
+        "How can I access your GitHub?",
+        "What is your GitHub?"
+      ],
+      "responses": [
+        "You can check out my GitHub profile at: https://github.com/HasanCan6241.",
+        "My GitHub profile is available at: https://github.com/HasanCan6241.",
+        "Feel free to visit my GitHub: https://github.com/HasanCan6241.",
+        "Here is my GitHub profile: https://github.com/HasanCan6241.",
+        "You can find my projects on GitHub: https://github.com/HasanCan6241.",
+        "Check out my GitHub at: https://github.com/HasanCan6241.",
+        "My GitHub link is: https://github.com/HasanCan6241.",
+        "You can see my work on GitHub here: https://github.com/HasanCan6241.",
+        "I am available on GitHub at: https://github.com/HasanCan6241.",
+        "Visit my GitHub profile: https://github.com/HasanCan6241."
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "mail_contact",
+      "patterns": [
+        "What is your email?",
+        "What is your mail?",  
+        "Can I have your email address?",
+        "How can I contact you via email?",
+        "What is your email address?",
+        "Can you share your email?",
+        "Where can I send an email?",
+        "What is your email ID?",
+        "Can I email you?",
+        "How do I reach you via email?",
+        "What is your email contact?"
+      ],
+      "responses": [
+        "You can contact me via email at: hasancan.celik6241@gmail.com.",
+        "Feel free to send me an email at: hasancan.celik6241@gmail.com.",
+        "My email address is: hasancan.celik6241@gmail.com.",
+        "You can reach me via email at: hasancan.celik6241@gmail.com.",
+        "Here is my email: hasancan.celik6241@gmail.com.",
+        "You can email me at: hasancan.celik6241@gmail.com.",
+        "For any inquiries, my email is: hasancan.celik6241@gmail.com.",
+        "My contact email is: hasancan.celik6241@gmail.com.",
+        "You can get in touch via email: hasancan.celik6241@gmail.com.",
+        "Send me an email at: hasancan.celik6241@gmail.com."
+      ],
+      "context_set": ""
+    },
+
+    {
+      "tag": "personal_background",
+      "patterns": [
+        "Who is Hasan Can Çelik?",
+        "Can you introduce yourself?",
+        "How did your career journey begin?",
+        "Can you give information about your profile?",
+        "What is your professional background?",
+        "What kind of an engineering career do you have?",
+        "How do you define yourself?",
+        "How do you express yourself professionally?",
+        "Can you give more information about your career?",
+        "In which areas do you specialize professionally?",
+        "What is Hasan Can Çelik's professional journey?",
+        "What are your specialties in the field of engineering?"
+      ],
+      "responses": [
+        "I am Hasan Can Çelik, a software engineer and I am progressing towards specialization in the fields of artificial intelligence and machine learning in my career.",
+        "As Hasan Can Çelik, I am known as an engineer who directs my projects with my passion for technology and innovation.",
+        "In my software engineering career, I have developed myself in the fields of artificial intelligence, data science and machine learning.",
+        "I am Hasan Can Çelik, a software engineer and I am specialized in the fields of artificial intelligence and machine learning. I have gained experience in individual and team projects, I manage my projects with the Agile methodology.",
+        "I am Hasan Can Çelik, a software engineer and I am building my career in the fields of artificial intelligence, machine learning, big data and data science.",
+        "I am a professional who constantly improves myself in the fields of artificial intelligence and data science. I focus on producing innovative solutions in my projects.",
+        "I am known as an engineer who manages my projects with a passion for technology and innovation and constantly improves himself.",
+        "As Hasan Can Çelik, I aim to carry artificial intelligence and machine learning technologies forward in my software engineering career.",
+        "I am a software engineer and I actively work on big data, data science and artificial intelligence projects.",
+        "Throughout my career, I have worked to produce innovative solutions in the field of technology and engineering."
+      ],
+      "context_set": ""
+    },
+
+    {
+      "tag": "career_summary",
+      "patterns": [
+        "What have you achieved in your career?",
+        "In which areas have you worked throughout your career?",
+        "What is the summary of your career?",
+        "What are your fields of work?",
+        "In which projects have you been involved throughout your career?",
+        "In which areas have you specialized professionally?",
+        "What achievements have you achieved in your career?",
+        "In which sectors and projects have you gained experience?"
+      ],
+      "responses": [
+        "Throughout my career, I have implemented projects in the fields of artificial intelligence, data science, and software development. I have worked at companies such as Intellium and Innovance Consultancy.",
+        "I specialized in data science and machine learning and led various projects.",
+        "Throughout my career, I have worked on data science and artificial intelligence projects and produced innovative solutions.",
+        "I have built my career by working in the fields of artificial intelligence, big data, and machine learning.",
+        "I have played an important role in artificial intelligence and data science projects in different sectors.",
+        "In my career, I have led data science and software engineering projects.",
+        "I specialized in data analysis, machine learning, and software development."
+      ],
+      "context_set": ""
+    },
+
+    {
+      "tag": "university_info",
+      "patterns": [
+        "Which university did you attend?",
+        "Where did you complete your undergraduate education?",
+        "Which university did you graduate from?",
+        "What university did you study at?",
+        "Where did you go to college?",
+        "Can you tell me which university you studied at?",
+        "Which institution did you complete your degree from?",
+        "Where did you do your higher education?",
+        "At which university did you do your undergrad?",
+        "Which university were you a student of?"
+      ],
+      "responses": [
+        "I attended Firat University.",
+        "I completed my undergraduate education at Firat University.",
+        "I graduated from Firat University.",
+        "I studied at Firat University.",
+        "My higher education was at Firat University.",
+        "I pursued my studies at Firat University.",
+        "Firat University is where I completed my undergraduate degree.",
+        "I was a student at Firat University.",
+        "I did my undergraduate studies at Firat University.",
+        "Firat University is the institution from which I graduated."
+      ],
+      "context_set": ""
+    },
+      
+    {
+      "tag": "department_info",
+      "patterns": [
+        "What was your major in university?",
+        "Which department did you study at Firat University?",
+        "What was your field of study in college?",
+        "Which major did you pursue at Firat University?",
+        "What department did you graduate from?",
+        "Which field did you specialize in during your university education?",
+        "What was your major?",
+        "Can you tell me your major at Firat University?",
+        "Which discipline did you study?",
+        "Which department were you in at university?"
+      ],
+      "responses": [
+        "I studied Software Engineering at Firat University.",
+        "My major was Software Engineering.",
+        "I graduated from the Software Engineering Department at Firat University.",
+        "I specialized in Software Engineering during my time at Firat University.",
+        "My field of study was Software Engineering.",
+        "I pursued a major in Software Engineering at Firat University.",
+        "I was in the Software Engineering department.",
+        "I completed my degree in Software Engineering.",
+        "Software Engineering was my field of study.",
+        "I focused on Software Engineering during my education at Firat University."
+      ],
+      "context_set": ""
+    },
+    
+    {
+      "tag": "gpa_info",
+      "patterns": [
+        "What was your GPA?",
+        "Can you tell me your GPA?",
+        "What is your grade point average?",
+        "How was your GPA at Firat University?",
+        "What GPA did you graduate with?",
+        "Can you provide your final GPA?",
+        "What was your academic performance like?",
+        "How high was your GPA?",
+        "What was your final GPA?",
+        "Can you share your GPA from university?"
+      ],
+      "responses": [
+        "I graduated with a 3.49 GPA from Firat University.",
+        "My GPA was 3.49.",
+        "I achieved a GPA of 3.49.",
+        "My final GPA at Firat University was 3.49.",
+        "I graduated with a GPA of 3.49.",
+        "My GPA upon graduation was 3.49.",
+        "I maintained a GPA of 3.49 during my studies.",
+        "My grade point average was 3.49.",
+        "I completed my degree with a 3.49 GPA.",
+        "The GPA I graduated with was 3.49."
+      ],
+      "context_set": ""
+    },
+      
+    {
+      "tag": "university_projects",
+      "patterns": [
+        "What projects did you carry out during your university education?",
+        "Can you tell me about your university projects?",
+        "What projects did you work on in college?",
+        "What kind of projects did you complete at Firat University?",
+        "Did you work on any projects during your studies?",
+        "Can you explain the projects you were involved in at university?",
+        "Which projects did you complete in university?",
+        "What projects did you develop during your education?",
+        "Can you provide details on your university projects?",
+        "What were the key projects you worked on at Firat University?"
+      ],
+      "responses": [
+        "During my university education, I worked on various projects in artificial intelligence and data science.",
+        "I developed a number of projects at Firat University, focusing on AI and data science.",
+        "My projects included developing AI models and data science applications during my studies.",
+        "I was involved in multiple projects, including AI-based disease detection and data analysis tools.",
+        "During my education, I completed projects such as disease detection using AI and other data science initiatives.",
+        "I worked on AI-driven projects and data science applications as part of my university curriculum.",
+        "My projects at Firat University focused on AI technologies and data science methodologies.",
+        "I was responsible for developing AI models and conducting data analysis in several projects.",
+        "My university projects were centered around AI and data science.",
+        "I completed projects in the fields of artificial intelligence and data science during my time at Firat University."
+      ],
+      "context_set": ""
+    },
+
+    {
+      "tag": "graduation_project",
+      "patterns": [
+        "What was your graduation project?",
+        "Can you give information about your graduation project?",
+        "Which area did your project cover?",
+        "Which technologies did you use in your project?",
+        "What kind of successes did you achieve in your graduation project?",
+        "What topics did you focus on in your project?",
+        "What problems did you solve in your graduation project?",
+        "Which technologies did your graduation project include?",
+        "What were the results of your project?",
+        "What were the challenges you encountered during the project?"
+      ],
+      "responses": [
+        "My graduation project was about developing a system that detects brain tumors, skin cancer, and diabetes using artificial intelligence.",
+        "In my project, I developed an artificial intelligence model that analyzes health data using Python and TensorFlow.",
+        "I achieved significant success with my artificial intelligence-based disease detection project and used data analysis, modeling, and machine learning techniques in this project.",
+        "My project included data analysis and modeling processes to detect various diseases with an artificial intelligence-supported system.",
+        "In my graduation project, I developed an AI model that detects diseases by processing health data and used technologies such as Python and TensorFlow in this project.",
+        "In the project, I aimed to increase the accuracy rate in disease detection using machine learning and data analysis techniques.",
+        "My project was designed to expand artificial intelligence applications in the field of health and I achieved significant academic success."
+      ],
+      "context_set": ""
+    },
+
+    {
+      "tag": "general_work_experience",
+      "patterns": [
+        "What work experience do you have ?",
+        "What is your work history?",
+        "Which companies have you worked at ?",
+        "Where have you worked before ?",
+        "What are your work experiences ?",
+        "In which areas do you have professional experience ?",
+        "What is your professional background ?",
+        "What companies have you been employed with ?",
+        "Can you tell me about your work history ?",
+        "What roles have you held in your previous jobs ?"
+      ],
+      "responses": [
+        "I have worked at several companies, including Intellium, Innovance Consultancy, and the Information Technologies Department. Each role provided me with valuable experience in artificial intelligence, data science, and software development.",
+        "My work experience spans across various industries and companies. At Intellium, I developed an AI-powered recruitment platform, while at Innovance Consultancy, I worked on data analysis and machine learning projects. Additionally, I gained experience in data-focused projects in the Information Technologies Department.",
+        "Throughout my career, I have been employed at Intellium, Innovance Consultancy, and the Information Technologies Department. These roles have allowed me to develop expertise in artificial intelligence and data science, contributing to significant projects and advancements.",
+        "I have accumulated diverse work experience through roles at Intellium, Innovance Consultancy, and the Information Technologies Department. These positions helped me gain expertise in data science, artificial intelligence, and software development.",
+        "In my career, I have worked for Intellium, Innovance Consultancy, and the Information Technologies Department. These roles have provided me with a solid foundation in artificial intelligence, data science, and software development."
+      ],
+      "context_set": ""
+    },
+    
+    {
+      "tag": "work_projects_and_tasks",
+      "patterns": [
+        "What kind of projects have you been involved in during your work life ?",
+        "What are some notable projects you have contributed to ?", 
+        "What projects have you worked on in your previous jobs ?",
+        "Can you describe some of the tasks you have undertaken in your work roles ?",
+        "What specific projects have you contributed to in your professional experience ?",
+        "What notable projects have you managed or worked on at your previous companies ?",
+        "What roles and responsibilities have you had in the projects you worked on ?",
+        "What were the key projects you were involved in at Intellium, Innovance Consultancy, or the Information Technologies Department?",
+        "Can you detail the types of projects you worked on in your career ?",
+        "What are some significant tasks and projects you have been responsible for in your work experience ?",
+        "What were your main contributions to the projects you worked on during your professional career ?"
+      ],
+      "responses": [
+        "At Intellium, I led the development of an AI-powered recruitment platform that streamlined the hiring process through advanced machine learning algorithms. At Innovance Consultancy, I was involved in diverse data analysis and visualization projects, which included creating actionable insights from complex datasets. In the Information Technologies Department, I worked on data-driven projects that aimed at improving organizational efficiency and decision-making.",
+        "In my career, I have managed and contributed to several key projects. At Intellium, I was responsible for developing an AI-based recruitment system, which involved tasks like data modeling and algorithm implementation. At Innovance Consultancy, I worked on machine learning projects and data visualization tasks that provided strategic insights. Additionally, my role at the Information Technologies Department included various data-centric projects focusing on optimizing processes and improving outcomes.",
+        "During my tenure at Intellium, I worked on a major project to develop an AI-powered recruitment platform, which required extensive work on data integration and algorithm development. At Innovance Consultancy, I was involved in projects related to data analysis and machine learning, focusing on deriving insights and building predictive models. In the Information Technologies Department, I contributed to projects that involved data preprocessing and visualization to enhance data-driven decision-making.",
+        "I have led and participated in several impactful projects throughout my career. Notably, at Intellium, I worked on the creation of an AI recruitment platform, which involved overseeing data analysis and model development. My role at Innovance Consultancy included contributing to various data analysis and machine learning projects that aimed to provide actionable business insights. At the Information Technologies Department, I engaged in projects focused on data optimization and visualization.",
+        "My professional experience includes significant contributions to various projects. At Intellium, I developed an AI-driven recruitment platform that enhanced the hiring process. At Innovance Consultancy, I worked on data science projects that included data analysis and machine learning. In the Information Technologies Department, I was involved in projects that focused on improving organizational efficiency through data insights and visualizations."
+      ],
+      "context_set": ""
+    },
+
+    {
+      "tag": "work_experience_intellium",
+      "patterns": [
+        "What did you do at Intellium?",
+        "What project did you work on at Intellium?",
+        "What kind of project did you develop for Intellium?",
+        "What was your role at Intellium?",
+        "What was your role at Intellium?",
+        "What areas did you work on at Intellium?",
+        "What technologies did you use at Intellium?",
+        "What challenges did you face in the Intellium project?",
+        "What responsibilities did you assume at Intellium?",
+        "What was your experience at Intellium?"
+      ],
+      "responses": [
+        "I developed an AI-powered recruiting platform for Intellium. This project aimed to optimize recruiting processes.",
+        "The AI-powered project I developed at Intellium provided great efficiency in recruiting processes.",
+        "My role at Intellium was to improve recruiting processes by developing AI solutions.",
+        "I made recruiting processes more effective by developing an AI-powered platform at Intellium.",
+        "At Intellium, I worked on a project that optimized recruiting processes using AI.",
+        "In the project at Intellium, I developed AI solutions that improved recruiting processes.",
+        "My role at Intellium was to increase efficiency in recruiting processes by using AI technologies.",
+        "At Intellium, I provided a significant transformation in recruiting processes by developing an AI-based platform.",
+        "The project I developed at Intellium provided a significant increase in efficiency in recruiting processes.",
+        "At Intellium, I worked to optimize recruiting processes with AI solutions."
+      ],
+      "context_set": ""
+    },
+
+    {
+      "tag": "work_experience_innovance",
+      "patterns": [
+        "What did you do at Innovance Consultancy?",
+        "What projects did you work on at Innovance?",
+        "What are your work experiences at Innovance?",
+        "What projects did you take part in for Innovance Consultancy?",
+        "What was your role at Innovance?",
+        "What technologies did you use at Innovance Consultancy?",
+        "What did you do in data analysis at Innovance?",
+        "What projects did you work on in the field of machine learning at Innovance?",
+        "What challenges did you encounter at Innovance Consultancy?",
+        "What were your responsibilities at Innovance?"
+      ],
+      "responses": [
+        "I worked on data preprocessing, data analysis, data visualization and artificial neural networks projects at Innovance Consultancy.",
+        "My role at Innovance was to manage data analysis and modeling processes in data science projects.",
+        "I worked on machine learning algorithms and data processing techniques at Innovance Consultancy.",
+        "I worked on data analysis, data visualization and modeling in data science projects at Innovance Consultancy.",
+        "I played an important role in data preprocessing and machine learning projects at Innovance.",
+        "I made important contributions to projects by working on data analysis and machine learning algorithms at Innovance Consultancy.",
+        "My role at Innovance was to manage data processing, modeling and visualization processes in data science projects.",
+        "I achieved significant successes in projects by working on artificial neural networks and data processing techniques at Innovance Consultancy.",
+        "I took an active role in data analysis and machine learning projects at Innovance Consultancy and achieved significant successes in projects ",
+        "I gained significant experience working on data analysis and modeling processes in data science projects at Innovance."
+      ],
+      "context_set": ""
+    },
+
+    {
+      "tag": "work_experience_it_department",
+      "patterns": [
+        "What did you do in the Information Technologies Department?",
+        "What was your role in the IT department?",
+        "What projects did you take part in the Information Technologies Department?",
+        "What areas did you work in the IT department?",
+        "What kind of tools did you use in data analysis in the Information Technologies Department?",
+        "What technologies did you work with in artificial intelligence projects?",
+        "How did your data visualization processes progress?",
+        "What was the biggest challenge you faced in the Information Technologies Department?"
+      ],
+      "responses": [
+        "I worked on data analysis, data visualization and artificial intelligence projects in the Information Technologies Department.",
+        "I took part in data manipulation and artificial intelligence model development processes in the IT department.",
+        "I contributed to data-driven decision processes in the Information Technologies Department.",
+        "I used tools such as Python and SQL in data analysis.",
+        "I used TensorFlow and Scikit-learn technologies in artificial intelligence projects.",
+        "I used Matplotlib and Seaborn libraries in data visualization processes.",
+        "Working with large data sets was my biggest challenge in the Information Technologies Department."
+      ],
+      "context_set": ""
+    },
+      
+    {
+      "tag": "general_technologies",
+      "patterns": [
+        "What technologies do you work with?",
+        "What skills do you have?",
+        "Which technologies are you familiar with?",
+        "What are the technologies you use?",
+        "What technologies do you know?",
+        "Which technologies do you have experience with?",
+        "Can you list the technologies you work with?",
+        "What technologies are you proficient in?",
+        "What tools and technologies do you use?",
+        "Which technologies do you work with?",
+        "What common technologies do you know?"
+      ],
+      "responses": [
+        "I work with a range of technologies including Python, SQL, HTML/CSS, Pandas, NumPy, Data Preprocessing, Data Modeling, Scikit learn, TensorFlow, Keras, PowerBI, Matplotlib, Seaborn, Plotly, Folium, Django, Flask, Scrapy, BeautifulSoup, NLP, Sentiment Analysis, NLTK.",
+        "I am familiar with technologies such as Python, SQL, Pandas, NumPy, Django, and Flask.",
+        "The technologies I use include Python, SQL, Pandas, and TensorFlow.",
+        "I have experience with Python, SQL, Scikit-learn, TensorFlow, and Django.",
+        "My expertise covers technologies like Python, SQL, Django, Flask, and TensorFlow.",
+        "I frequently use Python, SQL, Pandas, NumPy, and TensorFlow in my projects.",
+        "The technologies I work with include Python, SQL, HTML/CSS, and Django.",
+        "I am proficient in Python, SQL, Pandas, Scikit-learn, and TensorFlow.",
+        "I utilize technologies such as Python, SQL, Django, and TensorFlow.",
+        "My technical skills include working with Python, SQL, Pandas, TensorFlow, and Django."
+      ],
+      "context_set": ""
+    },
+      
+    {
+      "tag": "programming_languages",
+      "patterns": [
+        "What programming languages do you use?",
+        "Which coding languages are you proficient in?",
+        "What are your programming language skills?",
+        "Can you tell me about the languages you code in?",
+        "What programming languages are you experienced with?",
+        "Which languages do you use for coding?",
+        "What are your most used programming languages?",
+        "What languages do you work with?",
+        "Which programming languages do you know?",
+        "What coding languages do you know?"
+      ],
+      "responses": [
+        "I primarily use Python and SQL for various projects.",
+        "I am proficient in Python and SQL.",
+        "My main programming languages are Python and SQL.",
+        "I frequently work with Python and SQL.",
+        "I have strong skills in Python and SQL.",
+        "Python and SQL are my go-to languages.",
+        "I code mainly in Python and SQL.",
+        "Python and SQL are the languages I use the most.",
+        "I specialize in Python and SQL.",
+        "Python and SQL are my primary coding languages."
+      ],
+      "context_set": ""
+    },
+      
+    {
+      "tag": "web_development",
+      "patterns": [
+        "What tools do you use for web development?",
+        "What frameworks do you work with in web development?",
+        "What technologies do you use for building web applications?",
+        "Can you tell me about your web development skills?",
+        "Which frameworks are you proficient in for web development?",
+        "What do you know about web development?",
+        "What are your skills in web application development?",
+        "Which tools do you use in web development?",
+        "What frameworks do you use for web development?"
+      ],
+      "responses": [
+        "I work with Django and Flask for web development projects.",
+        "My web development expertise includes Django and Flask.",
+        "I use Django and Flask to build web applications.",
+        "In web development, I primarily use Django and Flask.",
+        "Django and Flask are my main tools for web application development.",
+        "I develop web applications using Django and Flask.",
+        "My web development skills are centered around Django and Flask.",
+        "I am proficient in using Django and Flask for web development.",
+        "I specialize in web development with Django and Flask.",
+        "I use Django and Flask as my primary web development frameworks."
+      ],
+      "context_set": ""
+    },
+      
+    {
+      "tag": "data_science_tools",
+      "patterns": [
+        "What tools do you work with in data science?",
+        "What technologies do you use for data science?",
+        "What are your skills in data science?",
+        "What tools do you use for data analysis?",
+        "Which tools are you proficient in for data science?",
+        "What software and tools do you use for data analysis?",
+        "What are your tools for data preprocessing?",
+        "What tools do you know for data science?",
+        "Which libraries do you use for data science?"
+      ],
+      "responses": [
+        "I work with a comprehensive set of tools for data science, including Pandas for data manipulation and cleaning, NumPy for numerical computations, and Matplotlib for creating detailed visualizations. These tools help me effectively analyze and present data.",
+        "My data science toolkit includes Pandas for handling structured data, NumPy for efficient array operations, and Matplotlib for generating insightful plots and graphs that facilitate data-driven decision-making.",
+        "In data science projects, I utilize Pandas to perform data wrangling and preprocessing, NumPy for performing complex mathematical operations, and Matplotlib to create clear and informative visualizations that highlight key trends and patterns.",
+        "For data science, I rely heavily on Pandas for data manipulation tasks, NumPy for high-performance matrix computations, and Matplotlib for visualizing the results of my analyses in a way that's easy to understand.",
+        "My data science skills are deeply rooted in using Pandas to clean and prepare data, NumPy to execute advanced numerical operations, and Matplotlib to produce visual representations of data that can be easily interpreted by stakeholders.",
+        "I utilize Pandas for organizing and transforming data, NumPy for executing high-speed calculations, and Matplotlib for crafting detailed visual reports that communicate findings effectively in my data science work.",
+        "I am proficient in using Pandas for data cleaning and preparation, NumPy for performing fast numerical computations, and Matplotlib for designing visually appealing charts and graphs that communicate my data analysis results clearly.",
+        "In my data science projects, I rely on Pandas to manage and clean large datasets, NumPy to perform efficient mathematical computations, and Matplotlib to produce comprehensive visualizations that support data-driven insights.",
+        "Pandas, NumPy, and Matplotlib are my primary tools for data science, allowing me to efficiently manipulate data, perform complex numerical operations, and create visualizations that accurately convey the outcomes of my analyses.",
+        "My go-to tools in data science are Pandas for handling data transformations, NumPy for executing numerical operations at scale, and Matplotlib for producing detailed and informative visualizations that aid in the interpretation of data."
+      ],
+      "context_set": ""
+    },
+      
+    {
+      "tag": "machine_learning_tools",
+      "patterns": [
+        "What tools do you use for machine learning?",
+        "Which libraries do you use for machine learning?",
+        "What technologies do you use in machine learning projects?",
+        "What tools are you proficient in for machine learning?",
+        "What software do you use for machine learning?",
+        "What are your tools for machine learning?",
+        "Which frameworks do you use for machine learning?",
+        "What do you use for machine learning?",
+        "What tools do you know for machine learning?",
+        "What technologies do you apply in machine learning?"
+      ],
+      "responses": [
+        "I use TensorFlow and Scikit-learn in machine learning projects.",
+        "My machine learning tools include TensorFlow and Scikit-learn.",
+        "I rely on TensorFlow and Scikit-learn for machine learning.",
+        "In machine learning, I primarily use TensorFlow and Scikit-learn.",
+        "I work with TensorFlow and Scikit-learn in my machine learning projects.",
+        "TensorFlow and Scikit-learn are my main tools for machine learning.",
+        "I am proficient in TensorFlow and Scikit-learn for machine learning.",
+        "My machine learning skills are centered around TensorFlow and Scikit-learn.",
+        "I use TensorFlow and Scikit-learn to develop machine learning models.",
+        "TensorFlow and Scikit-learn are the tools I use in machine learning."
+      ],
+      "context_set": ""
+    },
+      
+    {
+      "tag": "data_visualization_tools",
+      "patterns": [
+        "What data visualization tools do you use?",
+        "Which libraries do you use for data visualization?",
+        "What tools are you proficient in for data visualization?",
+        "What software do you use for visualizing data?",
+        "Which tools do you use for data visualization?",
+        "What do you use for creating data visualizations?",
+        "What are your skills in data visualization?",
+        "Which tools do you use to visualize data?",
+        "What technologies do you apply in data visualization?",
+        "Which libraries do you use to create data visualizations?"
+      ],
+      "responses": [
+        "I use libraries such as Matplotlib, Seaborn, and Plotly for data visualization.",
+        "My data visualization tools include Matplotlib, Seaborn, and Plotly.",
+        "I rely on Matplotlib, Seaborn, and Plotly for data visualization.",
+        "In data visualization, I primarily use Matplotlib, Seaborn, and Plotly.",
+        "I work with Matplotlib, Seaborn, and Plotly for creating data visualizations.",
+        "Matplotlib, Seaborn, and Plotly are my main tools for data visualization.",
+        "I am proficient in Matplotlib, Seaborn, and Plotly for data visualization.",
+        "My data visualization skills are centered around Matplotlib, Seaborn, and Plotly.",
+        "I use Matplotlib, Seaborn, and Plotly to create data visualizations.",
+        "Matplotlib, Seaborn, and Plotly are the tools I use for visualizing data."
+      ],
+      "context_set": ""
+    },
+      
+    {
+      "tag": "project_management_methodologies",
+      "patterns": [
+        "What do you know about project management and methodologies?",
+        "What project management methodologies do you use?",
+        "What frameworks do you follow in project management?",
+        "What methodologies do you use for managing projects?",
+        "What tools do you use for project management?",
+        "What are your skills in project management?",
+        "Which methodologies do you apply in project management?",
+        "How do you manage projects?",
+        "What project management techniques do you use?",
+        "What project management frameworks are you familiar with?"
+      ],
+      "responses": [
+        "I know Agile methodologies and the Scrum framework in project management.",
+        "My project management skills include Agile methodologies and Scrum.",
+        "I use Agile and Scrum for managing projects.",
+        "In project management, I follow Agile methodologies and the Scrum framework.",
+        "I am proficient in Agile and Scrum for project management.",
+        "My project management approach is based on Agile methodologies and Scrum.",
+        "I apply Agile and Scrum in my project management processes.",
+        "Agile and Scrum are the methodologies I use for managing projects.",
+        "I manage projects using Agile methodologies and Scrum.",
+        "I have experience with Agile methodologies and the Scrum framework in project management."
+      ],
+      "context_set": ""
+    },
+
+    {
+      "tag": "skills_soft",
+      "patterns": [
+        "How are you in teamwork?",
+        "What are your communication skills?",
+        "What do you think about the Agile methodology?",
+        "What is your working style?",
+        "What approach do you adopt in project management?",
+        "How do you behave in stressful situations?",
+        "Are you open to receiving and giving feedback?",
+        "What is your approach to conflict resolution?",
+        "What do you do for your personal development?",
+        "Can you tell us about your time management skills?"
+      ],
+      "responses": [
+        "I play an active role in teamwork and achieve success with my communication skills.",
+        "I manage my projects with the Agile methodology and I believe that this approach increases efficiency.",
+        "I adopt a disciplined and solution-oriented working style in my projects.",
+        "I stay calm in stressful situations and approach solution-oriented.",
+        "I am open to receiving and giving feedback, thus ensuring continuous development.",
+        "In conflict resolution, I focus on constructive dialogue and compromise.",
+        "I do continuous training and reading for personal development.",
+        "I work effectively by prioritizing time management."
+      ],
+      "context_set": ""
+    },
+    
+    {
+      "tag": "achievements",
+      "patterns": [
+        "What are your achievements?",
+        "What is your tübitak project?",
+        "Tell me about your accomplishments.",
+        "Do you have any notable successes?",
+        "What is your biggest achievement?",
+        "What is your TUBITAK success?",
+        "What is your TÜBİTAK 2209-A success?",
+        "Can you share your recent achievements?",
+        "What is your most significant accomplishment?",
+        "What have you achieved recently?",
+        "Any awards or recognitions?",
+        "What is your proudest achievement?"
+      ],
+      "responses": [
+        "One of my significant achievements is our project under TÜBİTAK 2209-A 2023 2nd Term, which focused on improving sensory skills of children with autism using AR technology. The project was successfully supported.",
+    "I am proud of our TÜBİTAK-supported project aimed at enhancing the sensory skills of autistic children through AR technology.",
+    "My proudest accomplishment is the TÜBİTAK project where we worked on improving sensory skills of children with autism using AR technology.",
+    "I achieved recognition for a TÜBİTAK 2209-A project focused on using AR technology to aid children with autism.",
+    "One of my major achievements is the TÜBİTAK project that utilized AR technology to support the sensory development of children with autism.",
+    "A key accomplishment of mine is the TÜBİTAK-supported AR technology project designed to help autistic children improve their sensory skills.",
+    "I successfully contributed to a TÜBİTAK 2209-A project that used AR technology to enhance the learning experiences of children with autism.",
+    "One of my notable achievements is receiving support for a TÜBİTAK project aimed at improving sensory skills in autistic children through AR technology.",
+    "I am proud to have been part of a TÜBİTAK-supported project that focused on improving the sensory skills of children with autism using AR.",
+    "My biggest achievement is leading a TÜBİTAK project that aimed to support children with autism through AR technology."
+      ],
+      "context_set": ""
+    },
+
+    {
+      "tag": "languages_proficiency",
+      "patterns": [
+        "What languages do you speak?",
+        "Can you speak any foreign languages?",
+        "What are your language skills?",
+        "Tell me about your language proficiency.",
+        "What languages are you fluent in?",
+        "Do you speak English?",
+        "What is your native language?",
+        "Are you fluent in any languages?",
+        "What is your language proficiency?",
+        "Can you list the languages you know?"
+      ],
+      "responses": [
+        "I am a native speaker of Turkish and have an intermediate level of proficiency in English.",
+        "I speak Turkish fluently and have a B1 level in English.",
+        "My native language is Turkish, and I am at an intermediate level in English.",
+        "I am fluent in Turkish and have good command of English.",
+        "I have B1 proficiency in English, and Turkish is my mother tongue.",
+        "My language skills include native fluency in Turkish and intermediate English.",
+        "I can communicate effectively in Turkish and have conversational skills in English.",
+        "I am bilingual, with Turkish as my native language and English at an intermediate level.",
+        "I am proficient in Turkish and have a B1 level in English.",
+        "My language abilities include Turkish fluency and intermediate English proficiency."
+      ],
+      "context_set": ""
+    },
+   
+    {
+      "tag": "AI_Powered_Recruitment_Platform",
+      "patterns": [
+        "Tell me about your AI-powered recruitment platform.",
+        "What is your Candidate Evaluation System?",
+        "How does your AI recruitment system work?",
+        "Describe the AI-powered recruitment platform you developed.",
+        "What does your AI Candidate Evaluation System do?",
+        "How does your recruitment platform improve the hiring process?",
+        "Can you explain your AI recruitment project?",
+        "What is the AI recruitment platform you created?",
+        "How does your Candidate Evaluation System use AI?",
+        "What is the purpose of your AI recruitment platform?"
+      ],
+      "responses": [
+        "The AI-Powered and Web-Based Recruitment Platform is an innovative system designed to assess job applicants using AI models. It streamlines the recruitment process by screening candidates during the initial stages, ensuring that only the most suitable candidates are shortlisted for further evaluation, thereby making the hiring process more efficient."
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "Brain_Tumor_Diagnosis",
+      "patterns": [
+        "Tell me about your AI-powered web application for brain tumor diagnosis.",
+        "What is your brain tumor diagnosis project?",
+        "How does your AI system help in diagnosing brain tumors?",
+        "Describe your brain tumor diagnosis application.",
+        "How does your AI project assist in brain tumor treatment?",
+        "Can you explain the brain tumor diagnosis project?",
+        "What does your AI brain tumor project do?",
+        "How does your web application diagnose brain tumors?",
+        "What is the purpose of your brain tumor AI project?",
+        "What is your AI-based brain tumor diagnosis system?"
+      ],
+      "responses": [
+        "The AI-Powered Web Application for Brain Tumor Diagnosis and Treatment Planning is designed to accurately predict and diagnose brain tumors using AI. It also provides disease-specific treatment planning processes, leveraging GPT to assist medical professionals in making informed decisions."
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "Network_Traffic_Visualization",
+      "patterns": [
+        "Tell me about your network traffic visualization project.",
+        "What is your network traffic visualization project?",
+        "How does your network traffic project work?",
+        "Describe your project on network traffic visualization.",
+        "How do you visualize network traffic data?",
+        "Can you explain the network traffic project?",
+        "What does your network visualization project do?",
+        "How does your project monitor network traffic?",
+        "What is the purpose of your network traffic visualization project?",
+        "What tools did you use for network traffic visualization?"
+      ],
+      "responses": [
+        "The Network Traffic Visualization project monitors incoming and outgoing traffic on the network using Wireshark and visualizes this data on a world map. By converting the data into geographical locations, it helps in understanding the regions from which data is being transmitted and received, allowing for the detection of potential malicious attacks on the network."
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "Mining_Accidents_Visualization",
+      "patterns": [
+        "Tell me about your global mining accidents data visualization project.",
+        "What is your mining accidents visualization project?",
+        "How does your mining accidents project work?",
+        "Describe your mining accidents data visualization.",
+        "How do you visualize mining accident data?",
+        "Can you explain the mining accidents project?",
+        "What does your mining accidents project do?",
+        "How does your project analyze mining accidents?",
+        "What is the purpose of your mining accidents data visualization?",
+        "What data do you analyze in your mining accidents project?"
+      ],
+      "responses": [
+        "The Global Mining Accidents Data Visualization project collects and analyzes data on mining accidents worldwide. It visualizes the causes, number of injuries, and fatalities on a world map, providing insights into the trends and factors contributing to mining accidents globally."
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "Plagiarism_Detection",
+      "patterns": [
+        "Tell me about your AI-based plagiarism detection website.",
+        "What is your plagiarism detection project?",
+        "How does your plagiarism detection system work?",
+        "Describe your AI plagiarism detection website.",
+        "How do you detect plagiarism using AI?",
+        "Can you explain the plagiarism detection project?",
+        "What does your plagiarism detection website do?",
+        "How does your project identify AI-generated content?",
+        "What is the purpose of your plagiarism detection website?",
+        "How does your AI system distinguish between human and AI writing?"
+      ],
+      "responses": [
+        "The Artificial Intelligence Based Plagiarism Detection Website is designed to differentiate between human-written articles and AI-generated content. It also detects instances of plagiarism, ensuring the originality of written work."
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "Movie_Recommendation_System",
+      "patterns": [
+        "Tell me about your movie recommendation system.",
+        "What is your movie recommendation project?",
+        "How does your movie recommendation system work?",
+        "Describe your movie recommendation application.",
+        "How do you recommend movies using AI?",
+        "Can you explain the movie recommendation project?",
+        "What does your movie recommendation system do?",
+        "How does your project suggest movies?",
+        "What is the purpose of your movie recommendation system?",
+        "What technology did you use for the movie recommendation project?"
+      ],
+      "responses": [
+        "The Movie Recommendation System project involves developing a recommendation engine in Python, which suggests movies based on user preferences. The system is integrated into a user-friendly interface using Streamlit, making it accessible and easy to use."
+      ],
+      "context_set": ""
+    },
+    
+    {
+      "tag": "project",
+      "patterns": [
+        "Can you tell me about the projects you've worked on?",
+        "What are some of your recent projects?",
+        "Describe your major projects.",
+        "What projects have you completed?",
+        "Can you share details about the projects you have done?",
+        "What kind of projects are in your portfolio?",
+        "Tell me about your projects.",
+        "What are your key projects?",
+        "What projects have you been involved in?",
+        "List some projects you've worked on."
+      ],
+      "responses": [
+        "I have worked on various projects that showcase my skills in artificial intelligence, data visualization, and web development. Here are some of my projects:\n\n- 🌟AI-Powered and Web-Based Recruitment Platform🌟 \n\n- 🌟AI-Powered Web Application for Brain Tumor Diagnosis and Treatment Planning🌟 \n\n- 🌟Network Traffic Visualization🌟\n\n- 🌟Global Mining Accidents Data Visualization🌟\n\n- 🌟Artificial Intelligence Based Plagiarism Detection Website🌟\n\n- 🌟Movie Recommendation System🌟\n\n Just type the project name for more information 🙂"
+      ],
+      "context_set": ""
+    },
+    {
+      "tag": "projects_ai",
+      "patterns": [
+        "What projects have you developed in the field of artificial intelligence?",
+        "Which artificial intelligence projects have you taken part in?",
+        "What are your artificial intelligence projects?",
+        "Which technologies did you use in your artificial intelligence projects?",
+        "What was the biggest challenge you encountered in your artificial intelligence projects?",
+        "Which data sources did you use in your artificial intelligence projects?",
+        "What were the results of your artificial intelligence projects?",
+        "Which algorithms did you apply in your artificial intelligence projects?",
+        "How did you collaborate with your team in artificial intelligence projects?",
+        "What is your most important success in artificial intelligence projects?"
+      ],
+      "responses": [
+        "In the field of artificial intelligence, I have developed several impactful projects, including a health data analysis system that detects various diseases and a personalized recruitment platform that streamlines the hiring process using AI.",
+        "In my artificial intelligence projects, I utilized advanced tools and frameworks such as TensorFlow for deep learning, Scikit-learn for machine learning algorithms, and natural language processing libraries like NLTK and spaCy for text analysis.",
+        "One of my notable AI projects involved creating an intelligent recruitment platform that leverages artificial neural networks and NLP techniques to efficiently match candidates with job requirements and improve the hiring process.",
+        "Throughout my AI projects, I faced significant challenges such as managing and preprocessing large volumes of data, optimizing model performance, and ensuring high accuracy and generalizability of the AI models.",
+        "For my AI projects, I sourced data from diverse datasets, including extensive health records and large-scale recruitment data, to train and validate the models effectively.",
+        "The results of my AI projects include enhanced disease detection accuracy, improved efficiency in recruitment processes, and the successful deployment of scalable AI solutions in real-world applications.",
+        "Collaboration in my AI projects involved effective teamwork through regular meetings, shared documentation, and collaborative coding practices, ensuring smooth progress and integration of various project components.",
+        "Among my most significant successes in AI projects are achieving high accuracy rates in disease diagnosis, developing user-friendly interfaces for AI systems, and receiving positive feedback from stakeholders and users."
+      ],
+      "context_set": ""
+    },
+
+    {
+      "tag": "projects_web_development",
+      "patterns": [
+        "What projects have you done in web development?",
+        "What are your web development projects?",
+        "What technologies have you used in your web projects?",
+        "What kind of projects have you done in web development?",
+        "What was the biggest challenge you faced in your web projects?",
+        "What frameworks did you use in your web development projects?",
+        "What were the results of your web projects?",
+        "What methodologies did you apply in your web development processes?",
+        "What did you do about user experience (UX) design in your web projects?",
+        "What was the feedback you received in your web development projects?"
+      ],
+      "responses": [
+        "In the field of web development, I developed various projects using Django and Flask.",
+        "I worked on personal portfolio and AI-powered web projects.",
+        "In my web development projects, I used technologies such as HTML, CSS, Bootstrap and JavaScript.",
+        "I usually encountered challenges such as user interface design and performance optimization in projects.",
+        "I developed web applications using Django and Flask frameworks.",
+        "My projects resulted in user-friendly and high-performance web applications.",
+        "I ensured the orderly progress of projects by applying the Agile methodology.",
+        "In my web projects, I applied various UX design principles to improve user experience.",
+        "I made continuous improvements based on the feedback I received from users."
+      ],
+      "context_set": ""
+    },
+
+    {
+      "tag": "future_goals",
+      "patterns": [
+        "What do you plan to do in the future?",
+        "What are your career goals?",
+        "What are your plans for the future?",
+        "What are your long-term career goals?",
+        "Where do you see yourself in the next 5 years?",
+        "Which technologies do you plan to focus on in the future?",
+        "How do you plan to progress in your career?",
+        "What do you plan to do to gain new skills?",
+        "What projects do you want to realize in the long term?",
+        "Which industries do you want to work in the future?"
+      ],
+      "responses": [
+        "In the future, I want to take part in larger projects in the field of artificial intelligence and data science and specialize in this field.",
+        "I aim to deepen my career in the field of artificial intelligence and machine learning and undertake leading projects in these fields.",
+        "My future plans include making a difference in the technology world by developing artificial intelligence-based projects.",
+        "I plan to take part in leading positions in artificial intelligence and big data projects.",
+        "I plan to focus on new technologies, especially gaining knowledge in the fields of deep learning and natural language processing.",
+        "I will focus on continuous education and the process of gaining new skills to advance my career.",
+        "I plan to take online courses and certifications to gain new skills.",
+        "In the long term, I want to work on projects that integrate health technologies and artificial intelligence.",
+        "I plan to work on AI-based web projects"
+      ],
+      "context_set": ""
+    }
+
+  ]
+}

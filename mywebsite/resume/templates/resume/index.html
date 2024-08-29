@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasan Can Çelik</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/chat.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <header class="bg-light shadow-sm">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="/">Hasan Can Çelik</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#experience">Experiences</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#achievements">Achievements</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#certifications">Certificates</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Communication</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+   <!-- Chat Butonu -->
+    <div class="chat-button-container">
+        <button id="chatButton" class="chat-button">
+            <i class="fas fa-comment-dots"></i>
+        </button>
+    </div>
+
+    <!-- Chat Penceresi -->
+    <div id="chatWindow" class="chat-window card shadow d-none">
+        <div class="card-header text-white">
+            Resume Chatbot
+            <button type="button" class="btn-close btn-close- float-end" aria-label="Close"></button>
+        </div>
+        <div class="card-body" id="chatBody">
+             <div class="d-flex mb-3">
+                    <div class="icon-container me-2">
+                        <img src="{% static 'images/bot.jpg' %}" alt="Yapay" class="user-icon">
+                    </div>
+                    <div class="message-container">
+                        <p>Hello, I am the personal assistant trained with Hasan Can Çelik's resume. I would be delighted to assist you with any questions you may have.</p>
+                    </div>
+        </div>
+        </div>
+        <div class="card-footer d-flex">
+            <input id="userMessage" type="text" class="form-control" placeholder="Write your message...">
+            <button id="sendMessage" class="btn btn-primary ms-2">
+                <i class="fas fa-paper-plane white" title="send message"></i> <!-- Paper plane icon -->
+            </button>
+        </div>
+    </div>
+
+
+<section id="home" class="text-center py-5 ">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center mb-4 mb-md-0">
+                <img src="{{profile.profile.url}}" class="rounded-circle profile-img-header img-fluid shadow-lg" width="350" height="350" alt="Profil Resmi">
+            </div>
+            <div class="col-md-6 text-md-start text-center">
+                <h1 class="display-4 fw-bold">Hasan Can Çelik</h1>
+                <p class="title">Data Scientist / Machine Learning & AI Engineer</p>
+                <p>{{ about.about }}</p>
+
+                <div class="social-icons">
+                    <a target="_blank" class="text-dark mx-2 d-inline-block" href="https://github.com/HasanCan6241" title="Github">
+                        <i class="fab fa-github fa-2x"></i>
+                    </a>
+                    <a class="text-dark mx-2 d-inline-block" target="_blank" href="https://www.linkedin.com/in/hasan-can-%C3%A7elik-46950623b/" title="LinkedIn">
+                        <i class="fab fa-linkedin fa-2x"></i>
+                    </a>
+                </div>
+
+
+                <div class="mt-4">
+                    <a class="btn btn-primary btn-lg mx-2" href="mailto:hasancan.celik6241@gmail.com">Contact Me</a>
+                    <a class="btn btn-outline-secondary btn-lg mx-2" href="{{ resume.file.url }}" download>
+                        <i class="fas fa-download"></i> CV Download
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="services" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Services</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-laptop-code fa-3x mb-3"></i>
+                            <h5 class="card-title">Web Development</h5>
+                            <p class="card-text">Developing AI-powered and web-based projects</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-chart-line fa-3x mb-3"></i>
+                            <h5 class="card-title">Data Analysis</h5>
+                            <p class="card-text">Carrying out data analysis and data preprocessing processes</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fas fa-robot fa-3x mb-3"></i>
+                            <h5 class="card-title">Machine Learning</h5>
+                            <p class="card-text">AI-based solutions and innovative AI projects</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+</section>
+
+<section id="education" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Education</h2>
+        {% for edu in education %}
+        <div class="row align-items-center mb-4">
+            <div class="col-md-3 text-center">
+                {% if edu.logo %}
+                <img src="{{ edu.logo.url }}" alt="{{ edu.school }}" class="img-fluid rounded-circle shadow-sm" width="180" height="180">
+                {% endif %}
+            </div>
+            <div class="col-md-9">
+                <h3 class="mb-2" style="color:black;">{{ edu.school }}</h3>
+                <h4 class="text-muted">{{ edu.title }}</h4>
+                <p class="mb-2">{{ edu.description }}</p>
+                <span class="badge bg-success text-white">AGNO: {{ edu.gpa }}</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section id="experience" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Experiences</h2>
+        <div class="timeline">
+            {% for exp in experiences %}
+            <div class="timeline-item">
+                <h5 class="text-muted">{{ exp.job_title }} - {{ exp.company }}</h5>
+                <p>{{ exp.start_date }} - {% if exp.end_date %}{{ exp.end_date }}{% else %}Devam Ediyor{% endif %}</p>
+                <p>{{ exp.description }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section id="projects" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5">Projects</h2>
+        <div class="row">
+            {% for project in projects %}
+            <div class="col-md-4 d-flex align-items-stretch mb-4">
+                <div class="card project-card shadow-sm border-0 rounded-lg">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-center text-uppercase font-weight-bold">{{ project.title }}</h5>
+                        <hr class="my-3">
+                        <p class="card-text text-muted flex-grow-1">{{ project.description }}</p>
+                        <a href="{{ project.link }}" target="_blank" class="btn btn-outline-primary  py-2 px-3 mt-auto align-self-center">Examine the Project</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+<section id="skills" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Skills</h2>
+        <div class="row">
+            {% for skill in skills %}
+            <div class="col-md-3 mb-4">
+                <div class="card shadow-sm border-light skill-card">
+                    <div class="card-body text-center">
+                        <h5 class="card-title skill-title">{{ skill.name }}</h5>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+<section id="achievements" class="py-5">
+    <div class="container">
+        <h2 class="text-center mb-5 font-weight-bold">Achievements</h2>
+        <div class="row">
+            {% for achievement in achievements %}
+            <div class="col-md-12 mb-4">
+                <div class="bg-white p-4 shadow-sm rounded-lg w-100 d-flex align-items-start">
+                    <div class="me-5"> <!-- Burada boşluğu artırmak için me-5 kullandık -->
+                        <img src="{{ achievement.logo.url }}" alt="{{ achievement.title }}" class="img-fluid border-primary" width="165" height="165">
+                    </div>
+                    <div>
+                        <h4 class="font-weight-bold mb-2">{{ achievement.title }}</h4>
+                        <p class="text-muted mb-0">{{ achievement.description }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+
+
+
+<section id="certifications" class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Certificates</h2>
+        <div class="row">
+            {% for cert in certifications %}
+            <div class="col-md-4">
+                {% if cert.certificate_image %}
+                <a href="{{ cert.certificate_link }}" target="_blank"><img src="{{ cert.certificate_image.url }}" class="img-fluid" alt="{{ cert.title }}" width="400" height="400"></a>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<footer class="pt-4 pb-4 text-center" id="contact">
+    <div class="container">
+        <div class="my-3">
+            <div class="h4 mb-2">Hasan Can Çelik</div>
+            <p class="lead mb-4">
+                <b>Data Science</b> & AI
+            </p>
+            <div class="social-nav mb-4">
+                <nav role="navigation">
+                    <ul class="nav justify-content-center">
+                        {% for communication in communications %}
+                        <li class="nav-item">
+                            <a class="nav-link"
+                               target="_blank"
+                               href="{% if communication.title == 'Email' %}mailto:{{ communication.communication_link }}{% else %}{{ communication.communication_link }}{% endif %}"
+                               title="{{ communication.title }}">
+                                {% if communication.title == "Email" %}
+                                    <i class="fas fa-envelope fa-2x"></i>
+                                {% elif communication.title == "Linkedln" %}
+                                    <i class="fab fa-linkedin fa-2x"></i>
+                                {% elif communication.title == "Github" %}
+                                    <i class="fab fa-github fa-2x"></i>
+                                {% endif %}
+                                <span class="sr-only">{{ communication.title }}</span>
+                                <p>{{ communication.title }}</p>
+                            </a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="text-small text-secondary">
+            <div class="mb-1">&copy; {{ current_year }} Hasan Can Çelik. All rights reserved.</div>
+            <div>
+                Your thoughts on the design -
+                <a href="#contact" class="text-primary">Design</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        // Chat button functionality
+        $('#chatButton').click(function() {
+            $('#chatWindow').toggleClass('d-none');
+        });
+
+        // Close button functionality
+        $('.btn-close').click(function() {
+            $('#chatWindow').addClass('d-none');
+        });
+
+        function sendMessage() {
+            var userMessage = $('#userMessage').val();
+            $('#chatBody').append(`
+                <div class="d-flex mb-3">
+                    <div class="icon-container me-2">
+                        <img src="{% static 'images/guy.jpg' %}" alt="İnsan" class="user-icon">
+                    </div>
+                    <div class="message-container">
+                        <p>${userMessage}</p>
+                    </div>
+                </div>
+            `);
+
+            $.ajax({
+                url: '{% url "chatbot" %}',  // Correct URL for your POST request
+                type: 'POST',
+                data: {
+                    'message': userMessage,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}'
+                },
+                success: function(data) {
+                    var response = data.response ? data.response : "Sorry, I don't understand. Can you give me more information?";
+                    $('#chatBody').append(`
+                        <div class="d-flex mb-3">
+                            <div class="icon-container me-2">
+                                <img src="{% static 'images/bot.jpg' %}" alt="Yapay Zeka" class="robot-icon">
+                            </div>
+                            <div class="message-container">
+                                <p>${response}</p>
+                            </div>
+                        </div>
+                    `);
+                    $('#userMessage').val('');
+                },
+                error: function() {
+                    $('#chatBody').append(`
+                        <div class="d-flex mb-3">
+                            <div class="icon-container me-2">
+                                <img src="{% static 'images/bot.jpg' %}" alt="Yapay Zeka" class="robot-icon">
+                            </div>
+                            <div class="message-container">
+                                <p>Bir hata oluştu, lütfen tekrar deneyin.</p>
+                            </div>
+                        </div>
+                    `);
+                    $('#userMessage').val('');
+                }
+            });
+        }
+
+        // Send message on button click
+        $('#sendMessage').click(function() {
+            sendMessage();
+        });
+
+        // Send message on Enter key press
+        $('#userMessage').keypress(function(event) {
+            if (event.which === 13 && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Fade-in effect on scroll
+        $(window).on('scroll', function() {
+            $('.fade-in').each(function() {
+                var bottom_of_object = $(this).offset().top + $(this).outerHeight() / 4;
+                var bottom_of_window = $(window).scrollTop() + $(window).height();
+
+                if (bottom_of_window > bottom_of_object) {
+                    $(this).animate({'opacity': '1'}, 500);
+                }
+            });
+        });
+
+        // Trigger scroll event on page load
+        $(window).trigger('scroll');
+
+        // Smooth scrolling
+        $("a.nav-link").on('click', function(event) {
+            if (this.hash !== "") {
+                event.preventDefault();
+                var hash = this.hash;
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top - 50 // Offset for the navbar height
+                }, 800, function() {
+                    window.location.hash = hash;
+                });
+            }
+        });
+
+        // Hover effect on cards
+        $('.shadow-hover').hover(
+            function() {
+                $(this).addClass('shadow-lg');
+            }, function() {
+                $(this).removeClass('shadow-lg');
+            }
+        );
+    });
+    </script>
+
+
+
+</body>
+</html>
