@@ -1,6 +1,6 @@
 # Personal Portfolio and AI Chatbot Website
 
-![Project Screenshot](path_to_your_image) <!-- Replace with your image path -->
+<img src="images/project_1.png" alt="Öneri Sistemi" width="855" height="400">
 
 ## 📜 Project Overview
 
@@ -42,12 +42,3 @@ Before you begin, ensure you have the following installed on your system:
 - Python 3.x
 - Django 4.x
 - Virtualenv (optional but recommended)
-
-### Installation
-
-Follow these steps to set up and run the project on your local machine:
-
-1. **Clone the Repository**:
-   ```bash
-   git clone https://github.com/your_username/your_project.git
-   cd your_project
