@@ -1,0 +1,685 @@
+{% extends 'resume/base.html' %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+<div class="spacer" style="height: 100px;"></div>
+
+<!-- About Hero Section -->
+<section class="about-hero-section">
+    <div class="hero-overlay"></div>
+    <div class="container">
+        <div class="row align-items-center min-vh-75">
+            <div class="col-lg-5" data-aos="fade-right">
+                <div class="profile-wrapper">
+                    {% if profile.profile %}
+                        <img src="{{ profile.profile.url }}" alt="Profile Picture" class="profile-image">
+                    {% else %}
+                        <div class="profile-placeholder">
+                            <i class="fas fa-user fa-5x"></i>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-lg-7" data-aos="fade-left">
+                <div class="about-content">
+                    <h1 class="about-title">About me</h1>
+                    {% if about %}
+                        <div class="about-text">
+                            {{ about.about|linebreaks }}
+                        </div>
+                    {% else %}
+                        <p class="about-text">I gained experience in individual and team projects throughout my academic life. I manage my projects using Agile methodology and am passionate about artificial intelligence and machine learning. I am actively improving myself in big data, data analysis, data visualization, data preprocessing, machine learning, and deep learning.</p>
+                    {% endif %}
+
+                    <!-- Action Buttons -->
+                    <div class="hero-actions">
+                        <a href="{% url 'resume:contact' %}" class="btn btn-hero btn-primary">
+                            <i class="fas fa-envelope"></i> Contact Me
+                        </a>
+
+                        {% if available_resumes %}
+                            {% if available_resumes|length == 1 %}
+                                <a href="{% url 'resume:download_resume' %}?lang={{ available_resumes.0.language }}" class="btn btn-primary btn-hero">
+                                    <i class="fas fa-download"></i>
+                                    <span>Download CV</span>
+                                    {% if available_resumes.0.language != 'tr' %}
+                                        <span class="language-badge {{ available_resumes.0.language }}">{{ available_resumes.0.language|upper }}</span>
+                                    {% endif %}
+                                </a>
+                            {% else %}
+                                <div class="cv-dropdown">
+                                    <button type="button" class="btn btn-primary btn-hero dropdown-toggle">
+                                        <i class="fas fa-download"></i>
+                                        <span>Download CV</span>
+                                        <i class="fas fa-chevron-down dropdown-caret"></i>
+                                    </button>
+                                    <div class="cv-dropdown-menu">
+                                        {% for resume in available_resumes %}
+                                            <a class="cv-dropdown-item" href="{% url 'resume:download_resume' %}?lang={{ resume.language }}">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="fas fa-file-pdf"></i>
+                                                    <span> Resume </span>
+                                                </div>
+                                                <span class="language-badge {{ resume.language }}">{{ resume.language|upper }}</span>
+                                            </a>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% else %}
+                            <a href="{% url 'resume:download_resume' %}" class="btn btn-primary btn-hero">
+                                <i class="fas fa-download"></i>
+                                <span>Download CV</span>
+                            </a>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Personal Journey Cards -->
+<section class="journey-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">My Journey</h2>
+                <p class="section-subtitle">Professional Growth and Experiences</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="journey-card education-card">
+                    <div class="card-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="card-content">
+                        <h5 class="card-title">Education</h5>
+                        <p class="card-text">Knowledge built through a continuous learning and self-improvement approach.</p>
+                        <a href="{% url 'resume:education' %}" class="card-link">
+                            View Details <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="journey-card experience-card">
+                    <div class="card-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="card-content">
+                        <h5 class="card-title">Experience</h5>
+                        <p class="card-text">Practical experiences and success stories gained from various projects.</p>
+                        <a href="{% url 'resume:experience' %}" class="card-link">
+                            View Details <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="journey-card certification-card">
+                    <div class="card-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <div class="card-content">
+                        <h5 class="card-title">Certificates</h5>
+                        <p class="card-text">Professional certifications I have earned and achievements.</p>
+                        <a href="{% url 'resume:certifications' %}" class="card-link">
+                            View Details <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="values-section">
+    <div class="values-overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title text-white">My Values</h2>
+                <p class="section-subtitle text-white opacity-75">The principles and approaches that guide me</p>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h5 class="value-title">Innovation</h5>
+                    <p class="value-text">Passionate about constantly learning new technologies and creating innovative solutions.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h5 class="value-title">Collaboration</h5>
+                    <p class="value-text">Focused on achieving collective success through teamwork and effective communication.</p>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h5 class="value-title">Quality</h5>
+                    <p class="value-text">A commitment to excellence and continuous improvement in every project.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Quote Section -->
+<section class="quote-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                <div class="quote-wrapper">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <blockquote class="quote-text">
+                        "Machines only calculate; true power lies in the minds that understand them and dedicate them to humanity."
+                    </blockquote>
+                    <cite class="quote-author">- Creative Approach</cite>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+
+{% block extra_css %}
+<style>
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #4f46e5 100%);
+    --secondary-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    --accent-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    --dark-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+}
+
+/* Hero Section */
+.about-hero-section {
+    background: var(--primary-gradient);
+    position: relative;
+    overflow: hidden;
+    padding: 100px 0;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.1);
+    z-index: 1;
+}
+
+.about-hero-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: float 20s ease-in-out infinite;
+    z-index: 2;
+}
+
+.container {
+    position: relative;
+    z-index: 3;
+}
+
+.profile-wrapper {
+    position: relative;
+}
+
+.profile-image {
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    border: 5px solid rgba(255,255,255,0.2);
+    transition: transform 0.5s ease;
+}
+
+.profile-image:hover {
+    transform: scale(1.05) rotate(2deg);
+}
+
+.profile-placeholder {
+    width: 100%;
+    max-width: 400px;
+    height: 400px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255,255,255,0.2);
+}
+
+.about-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.about-text {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 2.5rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btn-hero {
+    padding: 15px 35px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-primary {
+    background: white;
+    color: #667eea;
+    border: none;
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    color: #667eea;
+}
+
+.btn-outline {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.btn-outline:hover {
+    background: white;
+    color: #667eea;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+/* Journey Section */
+.journey-section {
+    padding: 100px 0;
+    background: #f8f9fa;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.section-subtitle {
+    font-size: 1.1rem;
+    color: #6c757d;
+    margin-bottom: 0;
+}
+
+.journey-card {
+    background: white;
+    border-radius: 20px;
+    padding: 2.5rem;
+    height: 100%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.journey-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: var(--primary-gradient);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.journey-card:hover::before {
+    transform: scaleX(1);
+}
+
+.journey-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+}
+
+.card-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+.education-card .card-icon {
+    background: var(--primary-gradient);
+}
+
+.experience-card .card-icon {
+    background: var(--secondary-gradient);
+    color: #2c3e50;
+}
+
+.certification-card .card-icon {
+    background: var(--accent-gradient);
+    color: #2c3e50;
+}
+
+.journey-card:hover .card-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.card-text {
+    color: #6c757d;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.card-link {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-link:hover {
+    color: #5a6fd8;
+    transform: translateX(5px);
+}
+
+/* Values Section */
+.values-section {
+    background: var(--dark-gradient);
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.values-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="90" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="30" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="20" cy="80" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+    z-index: 1;
+}
+
+.values-section .container {
+    position: relative;
+    z-index: 2;
+}
+
+.value-card {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.4s ease;
+    height: 100%;
+}
+
+.value-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255,255,255,0.15);
+}
+
+.value-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.value-card:hover .value-icon {
+    transform: scale(1.1);
+    background: rgba(255,255,255,0.3);
+}
+
+.value-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.value-text {
+    color: rgba(255,255,255,0.8);
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+/* Quote Section */
+.quote-section {
+    padding: 100px 0;
+    background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+}
+
+.quote-wrapper {
+    position: relative;
+    padding: 3rem;
+}
+
+.quote-icon {
+    font-size: 3rem;
+    color: rgba(255,255,255,0.3);
+    margin-bottom: 2rem;
+}
+
+.quote-text {
+    font-size: 1.5rem;
+    font-style: italic;
+    color: #2c3e50;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+}
+
+.quote-author {
+    font-size: 1.1rem;
+    color: #6c757d;
+    font-style: normal;
+    font-weight: 600;
+}
+
+/* Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    33% { transform: translateY(-20px) rotate(120deg); }
+    66% { transform: translateY(-10px) rotate(240deg); }
+}
+
+.hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+/* Dropdown Menü */
+.cv-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.cv-dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    z-index: 1000;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.cv-dropdown:hover .cv-dropdown-menu,
+.cv-dropdown:focus-within .cv-dropdown-menu {
+    display: block;
+}
+
+.cv-dropdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    color: #333;
+    text-decoration: none;
+}
+
+.cv-dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+.language-badge {
+    color: white;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.language-badge.tr { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+.language-badge.en { background: linear-gradient(135deg, #2563eb, #1d4ed8); }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-actions {
+        flex-direction: column;
+    }
+
+    .btn-hero {
+        justify-content: center;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Dropdown menünün genişliği mobilde tam genişlik olabilir */
+    .cv-dropdown-menu {
+        min-width: 100%;
+        left: 0;
+        right: 0;
+    }
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-title {
+        font-size: 2.5rem;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .btn-hero {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .profile-image,
+    .profile-placeholder {
+        max-width: 300px;
+        height: 300px;
+    }
+
+    .journey-card,
+    .value-card {
+        margin-bottom: 2rem;
+    }
+
+    .quote-text {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .about-hero-section {
+        padding: 60px 0;
+    }
+
+    .journey-section,
+    .values-section,
+    .quote-section {
+        padding: 60px 0;
+    }
+
+    .journey-card,
+    .value-card {
+        padding: 1.5rem;
+    }
+}
+</style>
+{% endblock %}

@@ -15,14 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
-from resume import views
+from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),  # Django admin paneli için yol
-    path('', views.portfolio_view, name='index'),  # Ana sayfa için yol
-    path('chat/', views.chatbot, name='chatbot'),  # Chatbot için yol
+    path('admin/', admin.site.urls),  # Django admin paneli
+    path('', include('resume.urls')),  # Resume uygulaması URL'lerini dahil et
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) \
-  + static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)
+  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

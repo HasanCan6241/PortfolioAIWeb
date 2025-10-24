@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni İletişim Mesajı</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #007bff;
+        }
+        .header h2 {
+            margin: 0;
+            color: #007bff;
+        }
+        .message-info {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .info-row {
+            display: flex;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .info-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        .info-label {
+            font-weight: bold;
+            width: 120px;
+            color: #495057;
+        }
+        .info-value {
+            flex: 1;
+            color: #212529;
+        }
+        .message-content {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 3px solid #28a745;
+            white-space: pre-line;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        .reply-info {
+            background-color: #e7f3ff;
+            border: 1px solid #b6d7ff;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 20px;
+        }
+        .reply-info strong {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>📧 Yeni İletişim Mesajı</h2>
+        <p>{{ site_name }} iletişim formundan yeni bir mesaj alındı.</p>
+    </div>
+
+    <div class="message-info">
+        <div class="info-row">
+            <div class="info-label">Gönderen:</div>
+            <div class="info-value">{{ contact_message.name }}</div>
+        </div>
+        
+        <div class="info-row">
+            <div class="info-label">E-posta:</div>
+            <div class="info-value">
+                <a href="mailto:{{ contact_message.email }}">{{ contact_message.email }}</a>
+            </div>
+        </div>
+        
+        <div class="info-row">
+            <div class="info-label">Konu:</div>
+            <div class="info-value">{{ contact_message.subject }}</div>
+        </div>
+        
+        <div class="info-row">
+            <div class="info-label">Tarih:</div>
+            <div class="info-value">{{ contact_message.created_at|date:"d.m.Y H:i" }}</div>
+        </div>
+        
+        {% if contact_message.ip_address %}
+        <div class="info-row">
+            <div class="info-label">IP Adresi:</div>
+            <div class="info-value">{{ contact_message.ip_address }}</div>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="message-content">
+        <strong>Mesaj İçeriği:</strong><br><br>
+        {{ contact_message.message }}
+    </div>
+
+    <div class="reply-info">
+        <strong>💡 İpucu:</strong> Bu e-postaya doğrudan yanıt vererek gönderene ulaşabilirsiniz.
+        Reply-To adresi otomatik olarak {{ contact_message.email }} olarak ayarlandı.
+    </div>
+
+    <div class="footer">
+        <p>Bu e-posta {{ site_name }} iletişim formu tarafından otomatik olarak gönderilmiştir.</p>
+        <p>Mesaj ID: #{{ contact_message.id }}</p>
+    </div>
+</body>
+</html>

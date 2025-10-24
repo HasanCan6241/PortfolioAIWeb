@@ -1,0 +1,1021 @@
+{% extends 'resume/base.html' %}
+{% load static %}
+
+{% block title %}Contact{% endblock %}
+{% csrf_token %}
+{% block extra_css %}
+<style>
+    .contact-section {
+        padding: 80px 0;
+        background: linear-gradient(135deg, #667eea 0%, #4f46e5 100%);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .contact-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    .section-title {
+        font-size: 3rem;
+        color: white;
+        text-align: center;
+        margin-bottom: 3rem;
+        font-weight: 700;
+        position: relative;
+        z-index: 2;
+    }
+
+    .section-subtitle {
+        text-align: center;
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.2rem;
+        margin-bottom: 4rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .contact-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
+
+   .contact-info-contact {
+    background: rgba(255, 255, 255, 0.95); /* Eskisi gibi beyaz arka plan */
+    border-radius: 20px;
+    padding: 3rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.contact-info-contact:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
+}
+
+.contact-info-contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--primary-gradient);
+    border-radius: 0 2px 2px 0;
+}
+
+/* Subtle animated background pattern */
+.contact-info-contact::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, transparent 0deg, rgba(99, 102, 241, 0.02) 60deg, transparent 120deg);
+    animation: rotate 12s linear infinite;
+    pointer-events: none;
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.info-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.info-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+    }
+/* Shimmer efekti */
+.info-icon::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: rotate(45deg);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.contact-item-contact {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: 15px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover slide efekti */
+.contact-item-contact::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.08), transparent);
+    transition: left 0.6s ease;
+}
+
+.contact-item-contact:hover {
+    background: white;
+    border-color: rgba(99, 102, 241, 0.3);
+    transform: translateX(8px) scale(1.01);
+    box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15);
+    color: inherit;
+    text-decoration: none;
+}
+
+.contact-item-contact:hover::before {
+    left: 100%;
+}
+
+/* Her iletişim tipi için özel renk paletleri */
+.contact-item-contact[data-type="email"] .contact-item-icon {
+    background: linear-gradient(45deg, #ff4b2b, #ff416c); /* Parlak kırmızı-pembe geçiş */
+    color: white; /* İkonun rengi beyaz olsun */
+    border-radius: 50%; /* Yuvarlak görünüm */
+    box-shadow: 0 0 12px rgba(255, 65, 108, 0.8); /* Parlayan efekt */
+    padding: 10px; /* İç boşluk */
+}
+
+.contact-item-contact[data-type="linkedin"] .contact-item-icon {
+    background: linear-gradient(135deg, #0077b5 0%, #005885 100%);
+}
+
+.contact-item-contact[data-type="github"] .contact-item-icon {
+    background: linear-gradient(135deg, #333 0%, #1a1a1a 100%);
+}
+
+.contact-item-contact[data-type="website"] .contact-item-icon {
+    background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%); /* Mavi degrade */
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(0, 114, 255, 0.6);
+}
+
+.contact-item-contact[data-type="other"] .contact-item-icon {
+    background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%); /* Turuncu-sarı degrade */
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(255, 179, 71, 0.6);
+}
+
+.contact-item-contact[data-type="phone"] .contact-item-icon {
+    background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%); /* Yeşil degrade */
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(0, 176, 155, 0.6);
+}
+
+/* Varsayılan icon rengi (Django'da data-type yoksa) */
+.contact-item-icon {
+    width: 50px;
+    height: 50px;
+    background: var(--primary-gradient);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.2);
+    transition: all 0.3s ease;
+}
+
+.contact-item-contact:hover .contact-item-icon {
+    transform: rotate(5deg) scale(1.05);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.3);
+}
+
+.contact-item-info {
+    flex-grow: 1;
+}
+
+.contact-item-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 0.3rem;
+    transition: all 0.3s ease;
+}
+
+.contact-item-contact:hover .contact-item-title {
+    color: #1a202c;
+    transform: translateX(2px);
+}
+
+.contact-item-value {
+    color: var(--neutral-600);
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.contact-item-contact:hover .contact-item-value {
+    color: var(--neutral-700);
+    transform: translateX(2px);
+}
+
+/* Form bölümü için eskisi gibi */
+.contact-form-section {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 3rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-form-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--success-gradient);
+}
+
+/* Responsive tasarım */
+@media (max-width: 768px) {
+    .contact-info-contact {
+        padding: 2rem;
+    }
+
+    .contact-item-contact {
+        padding: 1.2rem;
+    }
+
+    .info-title {
+        font-size: 1.6rem;
+    }
+
+    .contact-item-contact:hover {
+        transform: translateX(4px) scale(1.01);
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-info-contact {
+        padding: 1.5rem;
+    }
+
+    .contact-item-contact {
+        padding: 1rem;
+        gap: 0.8rem;
+    }
+
+    .contact-item-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1rem;
+    }
+
+    .info-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+    }
+
+    .info-title {
+        font-size: 1.4rem;
+        gap: 0.8rem;
+    }
+}
+
+    .form-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #2d3748;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .form-icon {
+        width: 50px;
+        height: 50px;
+        background: linear-gradient(135deg, #48bb78, #38a169);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.2rem;
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .form-label {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #2d3748;
+        margin-bottom: 0.5rem;
+    }
+
+    .form-control {
+        padding: 1rem 1.5rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 12px;
+        font-size: 1rem;
+        background: #ffffff;
+        transition: all 0.3s ease;
+        resize: vertical;
+        min-height: 50px;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: #667eea;
+        box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-control.textarea {
+        min-height: 120px;
+        font-family: inherit;
+    }
+
+    .submit-btn {
+        padding: 1rem 2rem;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .submit-btn:hover {
+        background: linear-gradient(135deg, #5a67d8, #6b46c1);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .submit-btn:active {
+        transform: translateY(0);
+    }
+
+    .floating-shapes {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .shape {
+        position: absolute;
+        opacity: 0.05;
+        animation: float 20s ease-in-out infinite;
+    }
+
+    .shape-1 { top: 5%; left: 2%; animation-delay: 0s; }
+    .shape-2 { top: 20%; right: 3%; animation-delay: 7s; }
+    .shape-3 { top: 45%; left: 5%; animation-delay: 14s; }
+    .shape-4 { bottom: 20%; right: 8%; animation-delay: 10s; }
+    .shape-5 { top: 60%; right: 30%; animation-delay: 3s; }
+    .shape-6 { bottom: 35%; left: 20%; animation-delay: 17s; }
+
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0px) rotate(0deg) scale(1);
+        }
+        25% {
+            transform: translateY(-80px) rotate(90deg) scale(1.2);
+        }
+        50% {
+            transform: translateY(40px) rotate(180deg) scale(0.8);
+        }
+        75% {
+            transform: translateY(-60px) rotate(270deg) scale(1.1);
+        }
+    }
+
+    @media (max-width: 968px) {
+        .contact-section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+        }
+
+        .contact-grid {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .contact-info-contact,
+        .contact-form-section,
+        .social-section {
+            padding: 2rem 1.5rem;
+        }
+
+        .contact-item-contact {
+            padding: 1.2rem;
+        }
+
+        .contact-item-icon {
+            width: 45px;
+            height: 45px;
+            font-size: 1rem;
+        }
+
+        .info-icon,
+        .form-icon {
+            width: 45px;
+            height: 45px;
+            font-size: 1.1rem;
+        }
+
+        .info-title,
+        .form-title {
+            font-size: 1.5rem;
+        }
+
+        .social-links {
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
+            font-size: 1.3rem;
+        }
+    }
+    /* Notification styles */
+    .notification {
+        animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+        from { transform: translateX(400px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    .field-error {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.char-counter {
+    transition: color 0.3s ease;
+}
+/* Mesaj alanı stilleri */
+#messageArea {
+    margin-bottom: 20px;
+}
+
+.alert {
+    padding: 15px 20px;
+    border-radius: 8px;
+    border-left: 4px solid;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    opacity: 1;
+    transition: all 0.3s ease;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border-left-color: #28a745;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-left-color: #dc3545;
+}
+
+.alert i {
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+/* Animasyonlar */
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+.fade-out {
+    animation: fadeOut 0.3s ease-out;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(-10px); }
+}
+
+/* Form hata stilleri */
+.form-control.error {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+    animation: shake 0.5s ease-in-out;
+}
+
+.field-error-container {
+    min-height: 20px;
+    margin-top: 5px;
+}
+
+.field-error {
+    color: #dc3545;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.field-error::before {
+    content: "⚠";
+    font-size: 14px;
+}
+
+/* Shake animasyonu */
+@keyframes shake {
+    0%, 20%, 40%, 60%, 80% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-5px);
+    }
+}
+
+/* Submit button loading durumu */
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.submit-btn:disabled:hover {
+    transform: none;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+/* Spinner animasyonu */
+.fa-spinner.fa-spin {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive iyileştirmeler */
+@media (max-width: 768px) {
+    .alert {
+        padding: 12px 15px;
+        font-size: 13px;
+    }
+
+    .alert i {
+        font-size: 16px;
+    }
+
+    .field-error {
+        font-size: 11px;
+    }
+}
+
+/* Form focus iyileştirmeleri */
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+/* Success state için form alanları */
+.form-control.success {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+}
+
+/* Loading overlay (opsiyonel) */
+.form-loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    z-index: 10;
+}
+
+.contact-form-section {
+    position: relative;
+}
+
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="contact-section">
+    <div class="floating-shapes">
+        <div class="shape shape-1">
+            <svg width="180" height="180" viewBox="0 0 180 180">
+                <circle cx="90" cy="90" r="75" fill="rgba(255,255,255,0.1)"/>
+            </svg>
+        </div>
+        <div class="shape shape-2">
+            <svg width="150" height="150" viewBox="0 0 150 150">
+                <rect x="35" y="35" width="80" height="80" rx="20" fill="rgba(255,255,255,0.1)"/>
+            </svg>
+        </div>
+        <div class="shape shape-3">
+            <svg width="120" height="120" viewBox="0 0 120 120">
+                <polygon points="60,20 100,90 20,90" fill="rgba(255,255,255,0.1)"/>
+            </svg>
+        </div>
+        <div class="shape shape-4">
+            <svg width="140" height="140" viewBox="0 0 140 140">
+                <path d="M70,20 L115,70 L70,120 L25,70 Z" fill="rgba(255,255,255,0.1)"/>
+            </svg>
+        </div>
+        <div class="shape shape-5">
+            <svg width="100" height="100" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="35" fill="rgba(255,255,255,0.1)"/>
+            </svg>
+        </div>
+        <div class="shape shape-6">
+            <svg width="110" height="110" viewBox="0 0 110 110">
+                <rect x="25" y="25" width="60" height="60" rx="15" fill="rgba(255,255,255,0.1)"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="container">
+        <h1 class="section-title">Contact</h1>
+        <p class="section-subtitle">
+            You can reach out to me using the methods below
+        </p>
+
+        <div class="contact-container">
+            <div class="contact-grid">
+                <!-- Django Template Kodu -->
+                <div class="contact-info-contact" data-aos="fade-right">
+                    <h2 class="info-title">
+                        <div class="info-icon">
+                            <i class="fas fa-address-card"></i>
+                        </div>
+                      Contact Information
+                    </h2>
+
+                    <div class="contact-methods">
+                        {% for comm in communications %}
+                        {% if comm.is_public %}
+                        <div class="contact-item-contact"
+                             data-type="{{ comm.type }}"
+                             {% if comm.communication_link %}
+                             onclick="window.open('{{ comm.communication_link }}', '_blank')"
+                             style="cursor: pointer;"
+                             {% endif %}>
+                            <div class="contact-item-icon">
+                                {% if comm.icon %}
+                                <i class="{{ comm.icon }}"></i>
+                                {% else %}
+                                <i class="fas fa-{% if comm.type == 'email' %}envelope{% elif comm.type == 'phone' %}phone{% elif comm.type == 'linkedin' %}linkedin{% elif comm.type == 'github' %}github{% elif comm.type == 'twitter' %}twitter{% elif comm.type == 'instagram' %}instagram{% elif comm.type == 'website' %}globe{% else %}link{% endif %}"></i>
+                                {% endif %}
+                            </div>
+                            <div class="contact-item-info">
+                                <div class="contact-item-title">{{ comm.title }}</div>
+                                <div class="contact-item-value">{{ comm.value }}</div>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% empty %}
+                        <div class="contact-item-contact">
+                            <div class="contact-item-icon">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <div class="contact-item-info">
+                                <div class="contact-item-title">Information</div>
+                                <div class="contact-item-value">Contact details will be added soon</div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+               <!-- contact.html - Düzeltilmiş version -->
+                <div class="contact-form-section" data-aos="fade-left">
+                    <h2 class="form-title">
+                        <div class="form-icon">
+                            <i class="fas fa-paper-plane"></i>
+                        </div>
+                       Send Message
+                    </h2>
+
+                    <!-- Mesaj alanı -->
+                    <div id="messageArea"></div>
+
+                    <!-- Form - action attribute'u eklendi -->
+                    <form class="contact-form" id="contactForm" method="post" action="{% url 'resume:contact' %}">
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                            <div class="field-error-container"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                            <div class="field-error-container"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input type="text" id="subject" name="subject" class="form-control" required>
+                            <div class="field-error-container"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" name="message" class="form-control textarea" rows="5" required></textarea>
+                            <div class="field-error-container"></div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 50
+    });
+
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.getElementById('contactForm');
+    const messageArea = document.getElementById('messageArea');
+    const submitBtn = contactForm.querySelector('.submit-btn');
+
+    // Form gönderimi
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Validation
+        if (!validateForm()) {
+            return;
+        }
+
+        // Button durumunu değiştir
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Gönderiliyor...';
+        submitBtn.disabled = true;
+
+        // Form verilerini hazırla
+        const formData = new FormData(contactForm);
+
+        // AJAX isteği
+        fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        })
+        .then(response => {
+            // Response'un JSON olup olmadığını kontrol et
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+                return response.json();
+            } else {
+                // JSON değilse muhtemelen redirect edildi, başarılı kabul et
+                return { success: true, message: 'Your message has been sent successfully. I will get back to you as soon as possible..' };
+            }
+        })
+        .then(data => {
+            if (data.success) {
+                showMessage('success', data.message);
+                contactForm.reset();
+                clearErrors();
+            } else {
+                showMessage('error', data.message || 'An error occurred. Please try again.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showMessage('error', 'An error occurred. Please try again.');
+        })
+        .finally(() => {
+            // Button durumunu eski haline getir
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        });
+    });
+
+    // Form validasyonu
+    function validateForm() {
+        const fields = {
+            name: 'Full Name is required.',
+            email: 'Please enter a valid email address.',
+            subject: 'Subject is required.',
+            message: 'Message is required.'
+        };
+
+
+        let isValid = true;
+        clearErrors();
+
+        for (const [fieldName, errorMessage] of Object.entries(fields)) {
+            const field = document.getElementById(fieldName);
+            const value = field.value.trim();
+
+            if (!value) {
+                showFieldError(fieldName, errorMessage);
+                isValid = false;
+                continue;
+            }
+
+            // E-posta validasyonu
+            if (fieldName === 'email' && !isValidEmail(value)) {
+                showFieldError(fieldName, Please enter a valid email address);
+                isValid = false;
+            }
+        }
+
+        return isValid;
+    }
+
+    // E-posta format kontrolü
+    function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    // Genel mesaj gösterme
+    function showMessage(type, message) {
+        const messageClass = type === 'success' ? 'alert-success' : 'alert-danger';
+        const icon = type === 'success' ? 'fas fa-check-circle' : 'fas fa-exclamation-triangle';
+
+        messageArea.innerHTML = `
+            <div class="alert ${messageClass} fade-in">
+                <i class="${icon}"></i>
+                <span>${message}</span>
+            </div>
+        `;
+
+        // Mesajı smooth scroll ile görünür yap
+        messageArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+        // 5 saniye sonra mesajı gizle (başarılı mesajlar için)
+        if (type === 'success') {
+            setTimeout(() => {
+                const alert = messageArea.querySelector('.alert');
+                if (alert) {
+                    alert.classList.add('fade-out');
+                    setTimeout(() => {
+                        messageArea.innerHTML = '';
+                    }, 300);
+                }
+            }, 5000);
+        }
+    }
+
+    // Alan bazında hata gösterme
+    function showFieldError(fieldName, message) {
+        const field = document.getElementById(fieldName);
+        const errorContainer = field.parentNode.querySelector('.field-error-container');
+
+        field.classList.add('error');
+        errorContainer.innerHTML = `<div class="field-error">${message}</div>`;
+    }
+
+    // Hataları temizle
+    function clearErrors() {
+        document.querySelectorAll('.form-control.error').forEach(field => {
+            field.classList.remove('error');
+        });
+
+        document.querySelectorAll('.field-error-container').forEach(container => {
+            container.innerHTML = '';
+        });
+
+        messageArea.innerHTML = '';
+    }
+
+    // Real-time validation (kullanıcı yazmaya başlayınca hataları temizle)
+    document.querySelectorAll('.form-control').forEach(field => {
+        field.addEventListener('input', function() {
+            if (this.classList.contains('error')) {
+                this.classList.remove('error');
+                const errorContainer = this.parentNode.querySelector('.field-error-container');
+                errorContainer.innerHTML = '';
+            }
+        });
+    });
+});
+</script>

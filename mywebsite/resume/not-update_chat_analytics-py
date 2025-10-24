@@ -1,0 +1,119 @@
+# resume/management/commands/update_chat_analytics.py
+from django.core.management.base import BaseCommand
+from django.db.models import Avg, F
+from django.utils import timezone
+from datetime import timedelta
+from resume.models import ChatSession, ChatMessage, ChatAnalytics
+
+
+class Command(BaseCommand):
+    help = 'Chatbot analitik verilerini günceller'
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--days',
+            type=int,
+            default=7,
+            help='Kaç günlük analitik güncellenecek (varsayılan: 7)',
+        )
+        parser.add_argument(
+            '--all',
+            action='store_true',
+            help='Tüm verileri yeniden hesapla',
+        )
+
+    def handle(self, *args, **options):
+        if options['all']:
+            self.update_all_analytics()
+        else:
+            days = options['days']
+            self.update_recent_analytics(days)
+
+        self.stdout.write(
+            self.style.SUCCESS('Analitik verileri başarıyla güncellendi!')
+        )
+
+    def update_recent_analytics(self, days):
+        """Son N günün analitiklerini güncelle"""
+        end_date = timezone.now().date()
+        start_date = end_date - timedelta(days=days)
+
+        for i in range(days + 1):
+            date = start_date + timedelta(days=i)
+            self.calculate_daily_analytics(date)
+
+    def update_all_analytics(self):
+        """Tüm analitikleri yeniden hesapla"""
+        # Mevcut analitikleri sil
+        ChatAnalytics.objects.all().delete()
+
+        # İlk session tarihini bul
+        first_session = ChatSession.objects.order_by('started_at').first()
+        if not first_session:
+            return
+
+        start_date = first_session.started_at.date()
+        end_date = timezone.now().date()
+
+        current_date = start_date
+        while current_date <= end_date:
+            self.calculate_daily_analytics(current_date)
+            current_date += timedelta(days=1)
+
+    def calculate_daily_analytics(self, date):
+        """Belirli bir günün analitiklerini hesapla"""
+        # O günün session'ları
+        sessions = ChatSession.objects.filter(
+            started_at__date=date
+        )
+
+        total_sessions = sessions.count()
+
+        if total_sessions == 0:
+            # Veri yoksa kayıt oluşturma
+            return
+
+        # O günün mesajları
+        messages = ChatMessage.objects.filter(
+            session__started_at__date=date
+        )
+
+        total_messages = messages.count()
+
+        # Ortalama mesaj sayısı
+        avg_messages_per_session = total_messages / total_sessions if total_sessions > 0 else 0
+
+        # Ortalama session süresi (dakika)
+        completed_sessions = sessions.filter(
+            ended_at__isnull=False
+        ).annotate(
+            duration=F('ended_at') - F('started_at')
+        )
+
+        if completed_sessions.exists():
+            avg_duration_seconds = completed_sessions.aggregate(
+                avg_duration=Avg('duration')
+            )['avg_duration'].total_seconds()
+            avg_session_duration = avg_duration_seconds / 60  # Dakikaya çevir
+        else:
+            avg_session_duration = 0
+
+        # Benzersiz kullanıcı sayısı (IP bazlı)
+        unique_users = sessions.values('user_ip').distinct().count()
+
+        # Analitik kaydını oluştur veya güncelle
+        analytics, created = ChatAnalytics.objects.update_or_create(
+            date=date,
+            defaults={
+                'total_sessions': total_sessions,
+                'total_messages': total_messages,
+                'avg_messages_per_session': round(avg_messages_per_session, 2),
+                'avg_session_duration': round(avg_session_duration, 2),
+                'unique_users': unique_users,
+            }
+        )
+
+        if created:
+            self.stdout.write(f"✓ {date} için analitik oluşturuldu")
+        else:
+            self.stdout.write(f"↻ {date} için analitik güncellendi")

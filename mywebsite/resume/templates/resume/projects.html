@@ -1,0 +1,1243 @@
+{% extends 'resume/base.html' %}
+
+{% block title %}Projects{% endblock %}
+
+{% block content %}
+<div class="spacer" style="height: 100px;"></div>
+
+<!-- Projects Hero Section -->
+<section class="projects-hero-section">
+    <div class="hero-overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                <h1 class="hero-title">Projects</h1>
+                <p class="hero-subtitle">
+                    Explore my creativity and technical skills through the projects I have developed.
+                    Each project has been built using different technologies and solution approaches.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- Öne Çıkan Projeler Section -->
+{% if featured_projects %}
+<section class="featured-projects-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Featured Projects</h2>
+                <p class="section-subtitle">A selection of my best work</p>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for project in featured_projects %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <!-- Aynı proje kartı yapısını kullanıyoruz -->
+                <div class="project-card h-100">
+                    <!-- Öne çıkan yıldız badge -->
+                    <div class="featured-badge">
+                        <i class="fas fa-star"></i> Featured
+                    </div>
+
+                    <div class="project-image-container">
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" class="project-image" alt="{{ project.title }}">
+                        {% else %}
+                        <div class="project-placeholder">
+                            <i class="fas fa-code fa-3x"></i>
+                        </div>
+                        {% endif %}
+                        <div class="project-overlay">
+                            <div class="project-actions-overlay">
+                                {% if project.link %}
+                                <a href="{{ project.link }}" target="_blank" class="btn-overlay btn-primary">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                {% endif %}
+                                {% if project.github_link %}
+                                <a href="{{ project.github_link }}" target="_blank" class="btn-overlay btn-secondary">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-content">
+                        <div class="project-header">
+                            <div class="project-icon-wrapper">
+                                {% if 'web' in project.title|lower %}
+                                    <i class="fas fa-globe project-icon"></i>
+                                {% elif 'mobile' in project.title|lower or 'mobil' in project.title|lower %}
+                                    <i class="fas fa-mobile-alt project-icon"></i>
+                                {% elif 'api' in project.title|lower %}
+                                    <i class="fas fa-code project-icon"></i>
+                                {% elif 'bot' in project.title|lower %}
+                                    <i class="fas fa-robot project-icon"></i>
+                                {% elif 'game' in project.title|lower or 'oyun' in project.title|lower %}
+                                    <i class="fas fa-gamepad project-icon"></i>
+                                {% elif 'ecommerce' in project.title|lower or 'e-ticaret' in project.title|lower %}
+                                    <i class="fas fa-shopping-cart project-icon"></i>
+                                {% else %}
+                                    <i class="fas fa-laptop-code project-icon"></i>
+                                {% endif %}
+                            </div>
+
+                            <div class="project-status">
+                                {% if project.status == 'completed' %}
+                                    <span class="status-badge completed">Completed</span>
+                                {% elif project.status == 'in_progress' %}
+                                    <span class="status-badge in-progress">In Progress</span>
+                                {% elif project.status == 'planned' %}
+                                    <span class="status-badge planned">Planned</span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <h5 class="project-title">{{ project.title }}</h5>
+
+                        <div class="project-description">
+                            {% if project.short_description %}
+                                <p>{{ project.short_description|truncatechars:120 }}</p>
+                            {% else %}
+                                <p>{{ project.description|truncatechars:120 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="project-tech">
+                            {% if project.technologies.all %}
+                                {% for tech in project.technologies.all %}
+                                    <span class="tech-badge">{{ tech.name }}</span>
+                                {% endfor %}
+                            {% else %}
+                                <span class="tech-badge default">Overview</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="project-meta">
+                            {% if project.start_date %}
+                                <span class="meta-item">
+                                    <i class="far fa-calendar-alt"></i>
+                                    {{ project.start_date|date:"M Y" }}
+                                    {% if project.end_date %}
+                                        - {{ project.end_date|date:"M Y" }}
+                                    {% endif %}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <div class="project-actions">
+                            {% if project.link %}
+                            <a href="{{ project.link }}" target="_blank" class="btn btn-primary">
+                                <i class="fas fa-external-link-alt"></i> Demo
+                            </a>
+                            {% endif %}
+
+                            {% if project.github_link %}
+                            <a href="{{ project.github_link }}" target="_blank" class="btn btn-outline">
+                                <i class="fab fa-github"></i> Code
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Projects Grid -->
+<section class="projects-grid-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center mb-5" data-aos="fade-up">
+                <h2 class="section-title">Recent Works</h2>
+                <p class="section-subtitle">A showcase of my most recent and impactful projects.</p>
+            </div>
+        </div>
+        {% if page_obj %}
+        <div class="row">
+            {% for project in page_obj %}
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:100 }}">
+                <div class="project-card h-100">
+                    <div class="project-image-container">
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" class="project-image" alt="{{ project.title }}">
+                        {% else %}
+                        <div class="project-placeholder">
+                            <i class="fas fa-code fa-3x"></i>
+                        </div>
+                        {% endif %}
+                        <div class="project-overlay">
+                            <div class="project-actions-overlay">
+                                {% if project.link %}
+                                <a href="{{ project.link }}" target="_blank" class="btn-overlay btn-primary">
+                                    <i class="fas fa-external-link-alt"></i>
+                                </a>
+                                {% endif %}
+                                {% if project.github_link %}
+                                <a href="{{ project.github_link }}" target="_blank" class="btn-overlay btn-secondary">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-content">
+                        <div class="project-header">
+                            <div class="project-icon-wrapper">
+                                {% if 'web' in project.title|lower %}
+                                    <i class="fas fa-globe project-icon"></i>
+                                {% elif 'mobile' in project.title|lower or 'mobil' in project.title|lower %}
+                                    <i class="fas fa-mobile-alt project-icon"></i>
+                                {% elif 'api' in project.title|lower %}
+                                    <i class="fas fa-code project-icon"></i>
+                                {% elif 'bot' in project.title|lower %}
+                                    <i class="fas fa-robot project-icon"></i>
+                                {% elif 'game' in project.title|lower or 'oyun' in project.title|lower %}
+                                    <i class="fas fa-gamepad project-icon"></i>
+                                {% elif 'ecommerce' in project.title|lower or 'e-ticaret' in project.title|lower %}
+                                    <i class="fas fa-shopping-cart project-icon"></i>
+                                {% else %}
+                                    <i class="fas fa-laptop-code project-icon"></i>
+                                {% endif %}
+                            </div>
+
+                            <div class="project-status">
+                                {% if project.status == 'completed' %}
+                                    <span class="status-badge completed">Completed</span>
+                                {% elif project.status == 'in_progress' %}
+                                    <span class="status-badge in-progress">In Progress</span>
+                                {% elif project.status == 'planned' %}
+                                    <span class="status-badge planned">Planned</span>
+                                {% endif %}
+                                {% if project.is_featured %}
+                                <span class="featured-star">
+                                    <i class="fas fa-star"></i>
+                                </span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <h5 class="project-title">{{ project.title }}</h5>
+
+                        <div class="project-description">
+                            {% if project.short_description %}
+                                <p>{{ project.short_description|truncatechars:120 }}</p>
+                            {% else %}
+                                <p>{{ project.description|truncatechars:120 }}</p>
+                            {% endif %}
+                        </div>
+
+                        <div class="project-tech">
+                            {% if project.technologies.all %}
+                                {% for tech in project.technologies.all %}
+                                    <span class="tech-badge">{{ tech.name }}</span>
+                                {% endfor %}
+                            {% else %}
+                                <span class="tech-badge default">Overview</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="project-meta">
+                            {% if project.start_date %}
+                                <span class="meta-item">
+                                    <i class="far fa-calendar-alt"></i>
+                                    {{ project.start_date|date:"M Y" }}
+                                    {% if project.end_date %}
+                                        - {{ project.end_date|date:"M Y" }}
+                                    {% endif %}
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <div class="project-actions">
+                            {% if project.link %}
+                            <a href="{{ project.link }}" target="_blank" class="btn btn-primary">
+                                <i class="fas fa-external-link-alt"></i> Demo
+                            </a>
+                            {% endif %}
+
+                            {% if project.github_link %}
+                            <a href="{{ project.github_link }}" target="_blank" class="btn btn-outline">
+                                <i class="fab fa-github"></i> Code
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if page_obj.has_other_pages %}
+        <div class="pagination-wrapper" data-aos="fade-up">
+            <nav aria-label="Projects pagination">
+                <ul class="custom-pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=1" aria-label="İlk">
+                            <i class="fas fa-angle-double-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <i class="fas fa-angle-left"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ num }}</span>
+                        </li>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                        </li>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                            <i class="fas fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+                            <i class="fas fa-angle-double-right"></i>
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="empty-state" data-aos="fade-up">
+            <div class="empty-icon">
+                <i class="fas fa-folder-open"></i>
+            </div>
+            <h3>No projects added yet</h3>
+            <p>Amazing projects will be showcased here soon!</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+<!-- Project Categories -->
+<section class="categories-section">
+    <div class="categories-overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto text-center" data-aos="fade-up">
+                <h2 class="section-title">Areas of Expertise</h2>
+                <p class="section-subtitle">The domains I work in within data science, artificial intelligence, and modern web technologies</p>
+                <div class="category-grid">
+                    <div class="category-item" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="category-icon data-science">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h5>Data Science & Analytics</h5>
+                        <p>Data exploration, statistical analysis, data visualization, and business intelligence solutions</p>
+                    </div>
+                    <div class="category-item" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="category-icon machine-learning">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h5>Machine Learning</h5>
+                        <p>Predictive modeling, classification, clustering, and supervised/unsupervised learning</p>
+                    </div>
+                    <div class="category-item" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="category-icon deep-learning">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h5>Deep Learning & AI</h5>
+                        <p>Neural networks, computer vision, NLP, and AI modeling using TensorFlow/PyTorch</p>
+                    </div>
+                    <div class="category-item" data-aos="zoom-in" data-aos-delay="400">
+                        <div class="category-icon web-frameworks">
+                            <i class="fab fa-python"></i>
+                        </div>
+                        <h5>Web Development</h5>
+                        <p>Backend development with Django and Flask, and RESTful API design</p>
+                    </div>
+                    <div class="category-item" data-aos="zoom-in" data-aos-delay="500">
+                        <div class="category-icon data-viz">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <h5>Data Visualization</h5>
+                        <p>Interactive dashboards, Matplotlib, Seaborn, Plotly, D3.js, and business intelligence tools</p>
+                    </div>
+                    <div class="category-item" data-aos="zoom-in" data-aos-delay="600">
+                        <div class="category-icon automation">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h5>Automation & MLOps</h5>
+                        <p>Model deployment, data pipelines, and automated machine learning workflows</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                <div class="cta-content">
+                    <h2>Do You Have a Project?</h2>
+                    <p>
+                        Work with me to turn your data-driven ideas into reality.
+                        You can get in touch for any project involving data science, AI, or intelligent applications.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="{% url 'resume:contact' %}" class="btn btn-cta-primary">
+                            <i class="fas fa-envelope"></i> Project Proposal
+                        </a>
+                        <a href="{% url 'resume:about' %}" class="btn btn-cta-outline">
+                            <i class="fas fa-user"></i> About Me
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_css %}
+<style>
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #4f46e5 100%);
+    --secondary-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    --accent-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    --dark-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    --success-gradient: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    --warning-gradient: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+    --info-gradient: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    --danger-gradient: linear-gradient(135deg, #f56565 0%, #e53e3e 100%);
+}
+
+/* Hero Section */
+.projects-hero-section {
+    background: var(--primary-gradient);
+    padding: 120px 0 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.1);
+    z-index: 1;
+}
+
+.projects-hero-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: rotateBackground 25s linear infinite;
+    z-index: 2;
+}
+
+.container {
+    position: relative;
+    z-index: 3;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #ffffff, #ffffff);
+     color: rgba(255, 255, 255, 0.9);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Projects Grid Section */
+.projects-grid-section {
+    padding: 100px 0;
+    background: #f8f9fa;
+}
+
+.project-card {
+    background: white;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255,255,255,0.2);
+    position: relative;
+}
+
+.project-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+}
+
+.project-image-container {
+    position: relative;
+    height: 245px;
+    overflow: hidden;
+}
+
+.project-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.project-placeholder {
+    width: 100%;
+    height: 100%;
+    background: var(--primary-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.project-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-card:hover .project-overlay {
+    opacity: 1;
+}
+
+.project-card:hover .project-image {
+    transform: scale(1.1);
+}
+
+.project-actions-overlay {
+    display: flex;
+    gap: 1rem;
+}
+
+.btn-overlay {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255,255,255,0.3);
+}
+
+.btn-overlay.btn-primary {
+    background: var(--primary-gradient);
+}
+
+.btn-overlay.btn-secondary {
+    background: var(--dark-gradient);
+}
+
+.btn-overlay:hover {
+    transform: scale(1.1);
+    color: white;
+}
+
+.project-content {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 220px);
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.project-icon-wrapper {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    background: var(--primary-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-icon-wrapper {
+    transform: rotate(5deg) scale(1.1);
+}
+
+.project-icon {
+    font-size: 1.5rem;
+    color: white;
+}
+
+.project-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.5rem;
+}
+
+.status-badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-badge.completed {
+    background: var(--success-gradient);
+    color: white;
+}
+
+.status-badge.in-progress {
+    background: var(--warning-gradient);
+    color: white;
+}
+
+.status-badge.planned {
+    background: var(--info-gradient);
+    color: white;
+}
+
+.featured-star {
+    color: #fbbf24;
+    font-size: 1.2rem;
+    animation: sparkle 2s ease-in-out infinite;
+}
+
+.project-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+}
+
+.project-description {
+    flex-grow: 1;
+    margin-bottom: 1.5rem;
+}
+
+.project-description p {
+    color: #6c757d;
+    line-height: 1.6;
+    font-size: 1rem;
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.tech-badge {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    transition: all 0.3s ease;
+}
+
+.tech-badge:hover {
+    background: var(--primary-gradient);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.tech-badge.default {
+    background: rgba(108, 117, 125, 0.1);
+    color: #6c757d;
+    border-color: rgba(108, 117, 125, 0.2);
+}
+
+.project-meta {
+    margin-bottom: 1.5rem;
+}
+
+.meta-item {
+    color: #6c757d;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.project-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+}
+
+.btn {
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    border: none;
+    font-size: 0.9rem;
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    color: white;
+}
+
+.btn-outline {
+    background: transparent;
+    color: #6c757d;
+    border: 2px solid #e9ecef;
+}
+
+.btn-outline:hover {
+    background: var(--dark-gradient);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+}
+
+/* Pagination */
+.pagination-wrapper {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: center;
+}
+
+.custom-pagination {
+    display: flex;
+    gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.page-item {
+    margin: 0;
+}
+
+.page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: white;
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+.page-link:hover {
+    background: var(--primary-gradient);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+}
+
+.page-item.active .page-link {
+    background: var(--primary-gradient);
+    color: white;
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 5rem 2rem;
+    color: #6c757d;
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 2rem;
+    opacity: 0.5;
+}
+
+.empty-state h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #495057;
+}
+
+.empty-state p {
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proje Kategorileri - Veri Bilimi & AI</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --info-gradient: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%);
+            --warning-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --danger-gradient: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            --secondary-gradient: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            --dark-gradient: linear-gradient(135deg, #0f0c29 0%, #24243e 50%, #313862 100%);
+            --ai-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --ml-gradient: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+            --data-gradient: linear-gradient(135deg, #26d0ce 0%, #1a2a6c 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8fafc;
+        }
+
+        /* Categories Section */
+        .categories-section {
+            background: var(--dark-gradient);
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .categories-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="60" cy="30" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="30" cy="70" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            z-index: 1;
+        }
+
+        .categories-section .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -15px;
+        }
+
+        .col-lg-10 {
+            flex: 0 0 83.333333%;
+            max-width: 83.333333%;
+            padding: 0 15px;
+        }
+
+        .mx-auto {
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        .text-center {
+            text-align: center !important;
+        }
+
+        .categories-section .section-title {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .categories-section .section-subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .category-item {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .category-item:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+
+        .category-item:hover .category-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .category-icon.data-science { background: linear-gradient(135deg, #26d0ce 0%, #1a2a6c 100%); }
+        .category-icon.machine-learning { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); }
+        .category-icon.deep-learning { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .category-icon.web-frameworks { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
+        .category-icon.data-viz { background: linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%); }
+        .category-icon.automation { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+
+        .category-item h5 {
+            color: white;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .category-item p {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .categories-section {
+                padding: 60px 0;
+            }
+
+            .categories-section .section-title {
+                font-size: 2rem;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .col-lg-10 {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+/* CTA Section */
+.cta-section {
+    background: var(--accent-gradient);
+    padding: 100px 0;
+}
+
+.cta-content {
+    text-align: center;
+}
+
+.cta-content h2 {
+    font-size: 2.5rem;
+    color: #2d3748;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    color: #4a5568;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.btn-cta-primary {
+    background: var(--primary-gradient);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.btn-cta-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+    color: white;
+}
+
+.btn-cta-outline {
+    background: transparent;
+    color: #2d3748;
+    border: 2px solid #2d3748;
+    padding: 1rem 2rem;
+    border-radius: 30px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+/* Projects Hero Section responsive */
+@media (max-width: 768px) {
+.projects-hero-section {
+padding: 100px 0 60px;
+}
+.hero-title {
+font-size: 2.5rem;
+margin-bottom: 1.5rem;
+}
+.hero-subtitle {
+font-size: 1.1rem;
+}
+}
+
+/* Projects Grid Section responsive */
+@media (max-width: 991px) {
+.project-card {
+margin-bottom: 2rem;
+}
+}
+
+@media (max-width: 576px) {
+.project-content {
+padding: 1.5rem;
+}
+.project-title {
+font-size: 1.2rem;
+}
+.project-description p {
+font-size: 0.9rem;
+}
+.project-actions {
+flex-direction: column;
+gap: 0.8rem;
+}
+.btn {
+width: 100%;
+justify-content: center;
+}
+}
+
+/* Categories Section responsive */
+@media (max-width: 768px) {
+.categories-section .section-title {
+font-size: 2rem;
+}
+.categories-section .section-subtitle {
+font-size: 1rem;
+margin-bottom: 2rem;
+}
+.category-grid {
+grid-template-columns: 1fr;
+}
+}
+
+/* CTA Section responsive */
+@media (max-width: 768px) {
+.cta-content h2 {
+font-size: 2rem;
+}
+.cta-content p {
+font-size: 1rem;
+}
+.cta-buttons {
+flex-direction: column;
+gap: 1rem;
+}
+.btn-cta-primary, .btn-cta-outline {
+width: 100%;
+justify-content: center;
+}
+}
+
+/* Animations */
+@keyframes rotateBackground {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+@keyframes sparkle {
+0%, 100% {
+transform: scale(1);
+opacity: 1;
+}
+50% {
+transform: scale(1.2);
+opacity: 0.8;
+}
+}
+
+/* Missing styles */
+.btn-cta-outline:hover {
+background: #2d3748;
+color: white;
+border-color: transparent;
+transform: translateY(-3px);
+box-shadow: 0 12px 35px rgba(45, 55, 72, 0.4);
+}
+
+/* Additional utility classes for better styling */
+.section-title {
+font-size: 2.5rem;
+font-weight: 700;
+color: #2d3748;
+margin-bottom: 1rem;
+}
+
+.section-subtitle {
+font-size: 1.2rem;
+color: #6c757d;
+margin-bottom: 3rem;
+}
+
+.spacer {
+height: 100px;
+}
+
+@media (max-width: 768px) {
+.spacer {
+height: 80px;
+}
+}
+/* Öne Çıkan Projeler Section */
+.featured-projects-section {
+    padding: 80px 0 40px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+/* Öne çıkan badge stili */
+.featured-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    color: #000;
+    padding: 0.4rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    z-index: 10;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.featured-badge i {
+    margin-right: 0.3rem;
+}
+
+/* Responsive tasarım için medya sorguları */
+@media (max-width: 768px) {
+    .featured-projects-section {
+        padding: 60px 0 30px;
+    }
+
+    .featured-badge {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+    }
+}
+</style>
+{% endblock %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+<script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+ </script>

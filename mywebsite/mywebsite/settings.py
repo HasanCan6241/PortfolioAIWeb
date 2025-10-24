@@ -28,13 +28,11 @@ SECRET_KEY = 'django-insecure-br1h9-e%-xb390fe&iq%1jm+-1q%)0hvxddgau2cs)2-fw46od
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = getenv("IS_DEVELOPMENT",True)
 
-ALLOWED_HOSTS = [
-]
 
 
 # Application definition
-
 INSTALLED_APPS = [
+    'jazzmin',  # Bu satırı en üste ekleyin
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -54,6 +52,156 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# JAZZMIN Modern Admin Panel Konfigürasyonu
+JAZZMIN_SETTINGS = {
+    # Site başlığı ve branding
+    "site_title": "Admin",
+    "site_header": "Yönetim Paneli",
+    "site_brand": "Hasan Can Çelik",
+    "site_logo": None,  # Logo eklemek istersen: "images/logo.png"
+    "login_logo": None,  # Giriş sayfası logosu
+    "login_logo_dark": None,  # Dark mode giriş logosu
+    "site_logo_classes": "img-circle elevation-3",
+    "site_icon": "fas fa-briefcase",  # Portfolio temasına uygun favicon
+
+    # Hoşgeldin mesajları
+    "welcome_sign": "Oops! Wrong door… This place only opens for its owner. 🚪",
+    "copyright": "Portfolio CMS © 2024",
+    "search_model": ["auth.User", "resume.Profile", "resume.Project"],
+
+    # Kullanıcı menüsü
+    "topmenu_links": [
+        {"name": "Ana Sayfa", "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "Site Önizleme", "url": "/", "new_window": True},
+        {"model": "auth.User"},
+        {"app": "resume"},
+    ],
+
+    # Üst navigasyon
+    "usermenu_links": [
+        {"name": "Site Ana Sayfa", "url": "/", "new_window": True, "icon": "fas fa-home"},
+        {"model": "auth.user"}
+    ],
+
+    # Sidebar ayarları
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "hide_apps": [],
+    "hide_models": [],
+
+    # Tema ayarları - Modern dark tema
+    "theme": "flatly",  # Modern tema seçimi
+    "dark_mode_theme": "cyborg",  # Dark mode için modern tema
+
+    # Özel linkler - her app için
+    "custom_links": {
+        "resume": [
+            {
+                "name": "Site Önizleme",
+                "url": "/",
+                "icon": "fas fa-external-link-alt",
+                "new_window": True
+            },
+            {
+                "name": "İstatistikler",
+                "url": "/admin/",
+                "icon": "fas fa-chart-bar",
+            }
+        ]
+    },
+
+    # Model iconları - Tüm modelleriniz için modern iconlar
+    "icons": {
+        # Django varsayılan
+        "auth": "fas fa-shield-alt",
+        "auth.user": "fas fa-user-tie",
+        "auth.Group": "fas fa-users-cog",
+
+        # Resume app modelleri
+        "resume": "fas fa-briefcase",
+        "resume.Profile": "fas fa-user-circle",
+        "resume.EmailSettings": "fas fa-envelope-open-text",
+        "resume.ContactMessage": "fas fa-comment-dots",
+        "resume.Education": "fas fa-graduation-cap",
+        "resume.About": "fas fa-info-circle",
+        "resume.Service": "fas fa-concierge-bell",
+        "resume.SkillCategory": "fas fa-layer-group",
+        "resume.Skill": "fas fa-star",
+        "resume.ProjectCategory": "fas fa-folder-open",
+        "resume.Project": "fas fa-project-diagram",
+        "resume.Certification": "fas fa-certificate",
+        "resume.Experience": "fas fa-briefcase",
+        "resume.Achievement": "fas fa-trophy",
+        "resume.Communication": "fas fa-comments",
+        "resume.Resume": "fas fa-file-pdf",
+        "resume.FreelanceService": "fas fa-handshake",
+        "resume.Platform": "fas fa-cube",
+        "resume.Review": "fas fa-star-half-alt",
+        "resume.ChatSession": "fas fa-comment",
+        "resume.ChatMessage": "fas fa-comment-alt",
+        "resume.ChatFeedback": "fas fa-thumbs-up",
+        "resume.ChatAnalytics": "fas fa-chart-bar",
+        "resume.GeminiModel": "fas fa-robot",
+        "resume.GeminiModelUsage": "fas fa-chart-line",
+    },
+
+    # Varsayılan iconlar
+    "default_icon_parents": "fas fa-chevron-circle-right",
+    "default_icon_children": "fas fa-circle",
+
+    # İlgili öğeler
+    "related_modal_active": False,
+
+    # Özel CSS ve JS
+    "custom_css": None,
+    "custom_js": None,
+    "use_google_fonts_cdn": True,
+    "show_ui_builder": True,  # UI Builder'ı göster
+
+    # Changeform ayarları
+    "changeform_format": "horizontal_tabs",  # Modern tab görünümü
+    "changeform_format_overrides": {
+        "auth.user": "collapsible",
+        "auth.group": "vertical_tabs"
+    },
+
+    # Dil ayarları
+    "language_chooser": False,
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": "navbar-light",
+    "accent": "accent-navy",
+    "navbar": "navbar-light",
+    "no_navbar_border": False,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": True,
+    "sidebar": "sidebar-light-primary",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": True,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": True,
+    "theme": "cosmo",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
+    },
+    "actions_sticky_top": False
+}
+
 ROOT_URLCONF = 'mywebsite.urls'
 
 TEMPLATES = [
@@ -67,10 +215,12 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'resume.context_processors.global_context',
             ],
         },
     },
 ]
+
 
 WSGI_APPLICATION = 'mywebsite.wsgi.application'
 
@@ -108,12 +258,10 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
+# Uluslararasılaştırma ayarları
+LANGUAGE_CODE = 'en-us'  # Türkçe yerine İngilizce
+TIME_ZONE = 'Europe/Istanbul'
 USE_I18N = True
-
 USE_TZ = True
 
 
@@ -123,9 +271,133 @@ USE_TZ = True
 STATIC_ROOT=BASE_DIR/"staticfiles"
 STATIC_URL = 'static/'
 
+# Dosya yükleme boyut limitleri (isteğe bağlı)
+FILE_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024  # 10 MB
+DATA_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024   # 10 MB
+
+# İzin verilen dosya uzantıları (güvenlik için)
+ALLOWED_CERTIFICATE_EXTENSIONS = [
+    '.pdf', '.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp',
+    '.doc', '.docx', '.txt'
+]
+
+
+# Chatbot Settings
+CHATBOT_SETTINGS = {
+    'MAX_MESSAGES_PER_SESSION': 100,
+    'SESSION_TIMEOUT_MINUTES': 30,
+    'MAX_MESSAGE_LENGTH': 1000,
+    'RATE_LIMIT_PER_MINUTE': 20,
+    'AUTO_END_SESSION_HOURS': 24,
+    'SAVE_ANALYTICS': True,
+}
+
+
+
+# Security ayarları
+SECURE_SSL_REDIRECT = False  # HTTP kullanıyorsanız False
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
+
+# Session ayarları
+SESSION_COOKIE_SECURE = False  # HTTP kullanıyorsanız False
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_AGE = 86400  # 24 saat
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+        'TIMEOUT': 180,  # 5 dakika
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000,
+        }
+    }
+}
+
+# Logging ayarları
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'chatbot_file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'logs/chatbot.log',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'chatbot': {
+            'handlers': ['chatbot_file', 'console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+}
+
 MEDIA_URL="media/"
 MEDIA_ROOT=BASE_DIR/ "media"
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
+
+# E-posta ayarları
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+
+
+# Rate limiting (django-ratelimit ile)
+RATELIMIT_ENABLE = True
+
+# Şifreleme anahtarı (bu anahtarı güvenli bir şekilde saklayın)
+EMAIL_ENCRYPTION_KEY = b'PK-OaOoOcXR-B7JgJDB_BNhw9M7uXFrAaGvg4OXTimA='  # Bu anahtarı Fernet.generate_key() ile oluşturun
+
+ENCRYPTION_KEY = 'M3q5xAQB7oQPSskIP0hm9rmIa4_vXTOhGLRcY8_6cAo='
+
+# Site adı (e-posta şablonlarında kullanılır)
+SITE_NAME = 'Kişisel Web Sitesi'  # Kendi site adınızı yazın
+
+# Logging ayarları
+LOGGING2 = {
+    'version': 2,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': 'logs/contact_form.log',
+            'maxBytes': 1024*1024*5,  # 5 MB
+            'backupCount': 5,
+            'formatter': 'verbose',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'resume': {
+            'handlers': ['file', 'console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

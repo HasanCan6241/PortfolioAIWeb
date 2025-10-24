@@ -1,0 +1,835 @@
+{% extends 'resume/base.html' %}
+{% load static %}
+
+{% block title %}Freelance Services{% endblock %}
+
+{% block extra_css %}
+<style>
+    :root {
+        --primary-color: #4f46e5;
+        --primary-light: #6366f1;
+        --secondary-color: #7c3aed;
+        --accent-color: #a855f7;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --text-primary: #111827;
+        --text-secondary: #6b7280;
+        --bg-gradient: linear-gradient(135deg, #667eea 0%, #4f46e5 100%);
+        --bg-glass: rgba(255, 255, 255, 0.15);
+        --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+        --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+        --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1), 0 5px 10px rgba(0, 0, 0, 0.05);
+        --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Modern Glassmorphism Effect */
+    .glass-card {
+        background: var(--bg-glass);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    /* Hero Section - Modern Design */
+    .hero-section {
+        background: linear-gradient(135deg, #667eea 0%, #4f46e5 100%);
+        color: white;
+        padding: 6rem 0;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    /* Stats Section - Modern Cards */
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+        margin: 3rem 0;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: var(--shadow-lg);
+        transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        border: none;
+    }
+
+    .stat-card::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: var(--bg-gradient);
+        transition: var(--transition);
+    }
+
+    .stat-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .stat-card:hover::after {
+        height: 8px;
+    }
+
+    .stat-number {
+        font-size: 3.5rem;
+        font-weight: 800;
+        background: var(--bg-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Services Section - Modern Cards */
+    .service-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+
+    .service-card {
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition);
+        border: none;
+        position: relative;
+    }
+
+    .service-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .service-image {
+        height: 400px;
+        width:635px;
+        background: var(--bg-gradient);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 3rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+
+    .service-image::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+        transform: translateX(-100%);
+    }
+
+    .service-card:hover .service-image::before {
+        animation: shine 1.5s infinite;
+    }
+
+    @keyframes shine {
+        100% { transform: translateX(100%); }
+    }
+
+    .service-content {
+        padding: 2rem;
+    }
+
+    .service-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+    }
+
+    .rating-display {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .stars {
+        color: #fbbf24;
+        display: flex;
+    }
+
+    /* Reviews Section - Modern Design */
+    .reviews-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+    }
+
+    .review-card {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition);
+        position: relative;
+        border: none;
+    }
+
+    .review-card.featured {
+        border-top: 4px solid var(--primary-color);
+        background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+    }
+
+    .review-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-xl);
+    }
+
+    .review-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 1.5rem;
+    }
+
+    .client-info {
+        flex-grow: 1;
+    }
+
+    .platform-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: white;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .rating-breakdown {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin: 1.5rem 0;
+        padding: 1.5rem;
+        background: #f9fafb;
+        border-radius: 12px;
+    }
+
+    .rating-item {
+        text-align: center;
+    }
+
+    .rating-label {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+    }
+
+    .rating-value {
+        font-weight: 700;
+        color: var(--text-primary);
+        font-size: 1.1rem;
+    }
+
+    .client-info {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .user-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--primary-color), #8b5cf6);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.25rem;
+        font-weight: 600;
+        flex-shrink: 0;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .user-avatar i {
+        font-size: 1.1rem;
+    }
+
+    .client-details h6 {
+        margin: 0 0 0.25rem 0;
+    }
+
+    .client-details small {
+        display: block;
+    }
+    @media (max-width: 768px) {
+    .client-info {
+        gap: 0.75rem;
+    }
+
+    .user-avatar {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+}
+    /* Section Headers */
+    .section-header {
+        text-align: center;
+        margin: 5rem 0 4rem;
+    }
+
+    .section-title {
+        font-size: 2.75rem;
+        font-weight: 800;
+        background: var(--bg-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 1.25rem;
+        line-height: 1.2;
+    }
+
+    .section-subtitle {
+        font-size: 1.25rem;
+        color: var(--text-secondary);
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.6;
+    }
+
+    /* Featured Badge */
+    .featured-badge {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: var(--success-color);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    /* Project Image */
+    .project-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 12px;
+        margin: 1.5rem 0;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition);
+    }
+
+    .review-card:hover .project-image {
+        box-shadow: var(--shadow-lg);
+    }
+
+    /* Buttons */
+    .btn-outline-primary {
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+        font-weight: 500;
+        padding: 0.5rem 1.25rem;
+        border-radius: 8px;
+        transition: var(--transition);
+    }
+
+    .btn-outline-primary:hover {
+        background: var(--primary-color);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-md);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .fade-in {
+        opacity: 0;
+        animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+        .hero-section {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2.25rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 3rem 0;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+        }
+
+        .service-grid,
+        .reviews-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 576px) {
+        .hero-section {
+            padding: 2.5rem 0;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section - Modern Design -->
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content text-center">
+            <h1 class="display-4 fw-bold mb-4 fade-in">Freelance Services</h1>
+            <p class="lead mb-5 fade-in" style="animation-delay: 0.2s;">
+                Detailed information about the premium services I offer in software development, artificial intelligence,
+                and web programming, along with client experiences.
+            </p>
+            <a href="#services" class="btn btn-light btn-lg px-4 py-2 rounded-pill fade-in" style="animation-delay: 0.4s;">
+                Explore Services <i class="fas fa-arrow-down ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section - Modern Cards -->
+<div class="container">
+    <div class="stats-grid fade-in" style="animation-delay: 0.4s;">
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.total_services }}+</div>
+            <div class="h6 text-muted">Professional Services</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.total_reviews }}+</div>
+            <div class="h6 text-muted">Satisfied Clients</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.overall_avg }}/5</div>
+            <div class="h6 text-muted">Average Rating</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-number">{{ stats.total_platforms }}+</div>
+            <div class="h6 text-muted">Platforms</div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Services Section - Modern Design -->
+{% if freelance_services %}
+<section id="services" class="section-header">
+    <h2 class="section-title">My Premium Services</h2>
+    <p class="section-subtitle">
+        High-quality services I provide in my areas of expertise, along with client satisfaction statistics
+    </p>
+</section>
+
+
+<div class="container">
+    <div class="service-grid">
+        {% for service in freelance_services %}
+        <div class="service-card fade-in" style="animation-delay: {{ forloop.counter|floatformat:1|add:'0.1' }}s;">
+            {% if service.service_image %}
+                <img src="{{ service.service_image.url }}" alt="{{ service.name }}" class="service-image">
+            {% else %}
+                <div class="service-image">
+                    <i class="fas fa-{{ service.icon|default:'code' }}"></i>
+                </div>
+            {% endif %}
+
+            <div class="service-content">
+                <div class="service-meta">
+                    <span><i class="fas fa-comment-alt me-1"></i>{{ service.review_count }} reviews</span>
+                    {% if service.avg_overall %}
+                    <div class="rating-display">
+                        <div class="stars">
+                            {% for star in star_range %}
+                                {% if star <= service.avg_overall %}
+                                    <i class="fas fa-star"></i>
+                                {% else %}
+                                    <i class="far fa-star"></i>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <span class="fw-bold">{{ service.avg_overall|floatformat:1 }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+
+                <h5 class="fw-bold mb-3">{{ service.name }}</h5>
+                <p class="text-muted mb-4">{{ service.description|truncatewords:25 }}</p>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    {% if service.service_link %}
+                    <a href="{{ service.service_link }}" target="_blank" class="btn btn-outline-primary">
+                        <i class="fas fa-external-link-alt me-2"></i>View Details
+                    </a>
+                    {% endif %}
+
+                    {% if service.price %}
+                    <span class="badge bg-light text-dark py-2 px-3">
+                        <i class="fas fa-tag me-1"></i>{{ service.price }}
+                    </span>
+                    {% endif %}
+                </div>
+
+                {% if service.avg_communication or service.avg_timing or service.avg_quality %}
+                <div class="rating-breakdown mt-4">
+                    <div class="rating-item">
+                        <div class="rating-label">Communication</div>
+                        <div class="rating-value">{{ service.avg_communication|floatformat:1|default:"-" }}</div>
+                    </div>
+                    <div class="rating-item">
+                        <div class="rating-label">Timeliness</div>
+                        <div class="rating-value">{{ service.avg_timing|floatformat:1|default:"-" }}</div>
+                    </div>
+                    <div class="rating-item">
+                        <div class="rating-label">Quality</div>
+                        <div class="rating-value">{{ service.avg_quality|floatformat:1|default:"-" }}</div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<!-- Featured Reviews Section - Modern Design -->
+{% if featured_reviews %}
+<section class="section-header">
+    <h2 class="section-title">Featured Testimonials</h2>
+    <p class="section-subtitle">
+        Special feedback and success stories from my clients
+    </p>
+</section>
+
+<div class="container">
+    <div class="reviews-grid">
+        {% for review in featured_reviews %}
+        <div class="review-card featured fade-in" style="animation-delay: {{ forloop.counter|floatformat:1|add:'0.1' }}s;">
+            <div class="featured-badge">
+                <i class="fas fa-star"></i> Featured
+            </div>
+
+            <div class="review-header">
+                <div class="client-info">
+                    <h6 class="fw-bold mb-1">{{ review.client_name }}</h6>
+                    <small class="text-muted">{{ review.client_title|default:review.service.name }}</small>
+                </div>
+                <div class="platform-badge" style="background-color: {{ review.platform.color }};">
+                    {% if review.platform.platform_logo %}
+                        <img src="{{ review.platform.platform_logo.url }}" alt="{{ review.platform.name }}" width="16" height="16">
+                    {% endif %}
+                    {{ review.platform.name }}
+                </div>
+            </div>
+
+            <div class="rating-display mb-3">
+                <div class="stars">
+                    {% for star in star_range %}
+                        {% if star <= review.overall_rating %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <span class="fw-bold ms-2">{{ review.overall_rating }}.0/5</span>
+            </div>
+
+            <blockquote class="mb-4">
+                <p class="font-italic">"{{ review.comment|truncatewords:40 }}"</p>
+            </blockquote>
+
+            {% if review.project_description %}
+            <div class="border-top pt-3">
+                <h6 class="fw-bold mb-2"><i class="fas fa-tasks me-2"></i>Project Details:</h6>
+                <p class="small text-muted mb-0">{{ review.project_description|truncatewords:25 }}</p>
+            </div>
+            {% endif %}
+
+            {% if review.project_image %}
+            <img src="{{ review.project_image.url }}" alt="Project Image" class="project-image">
+            {% endif %}
+
+            <div class="rating-breakdown">
+                <div class="rating-item">
+                    <div class="rating-label">Communication</div>
+                    <div class="rating-value">{{ review.communication_rating }}/5</div>
+                </div>
+                <div class="rating-item">
+                    <div class="rating-label">Timeliness</div>
+                    <div class="rating-value">{{ review.timing_rating }}/5</div>
+                </div>
+                <div class="rating-item">
+                    <div class="rating-label">Quality</div>
+                    <div class="rating-value">{{ review.quality_rating }}/5</div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <small class="text-muted"><i class="far fa-calendar-alt me-1"></i>{{ review.created_at|date:"d M Y" }}</small>
+                {% if review.project_link %}
+                <a href="{{ review.project_link }}" target="_blank" class="btn btn-sm btn-link">
+                    View Project <i class="fas fa-arrow-right ms-1"></i>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+<!-- Latest Reviews Section - Modern Design -->
+{% if latest_reviews %}
+<section class="section-header">
+    <h2 class="section-title">Recent Client Reviews</h2>
+    <p class="section-subtitle">
+        The most recent client experiences and professional evaluations
+    </p>
+</section>
+
+<div class="container">
+    <div class="reviews-grid">
+        {% for review in latest_reviews %}
+        {% if not review.is_featured %}
+        <div class="review-card fade-in" style="animation-delay: {{ forloop.counter|floatformat:1|add:'0.05' }}s;">
+            <div class="review-header">
+                <div class="client-info">
+                    <div class="user-avatar">
+                        <!-- İsmin ilk harfini veya bir ikon gösterebilirsiniz -->
+                        {{ review.client_name|first|upper }}
+                        <!-- Alternatif olarak: <i class="fas fa-user"></i> -->
+                    </div>
+                    <div class="client-details">
+                        <h6 class="fw-bold mb-1">{{ review.client_name }}</h6>
+                        <small class="text-muted">{{ review.client_title|default:review.service.name }}</small>
+                    </div>
+                </div>
+                <div class="platform-badge" style="background-color: {{ review.platform.color }};">
+                    {% if review.platform.platform_logo %}
+                        <img src="{{ review.platform.platform_logo.url }}" alt="{{ review.platform.name }}" width="16" height="16">
+                    {% endif %}
+                    {{ review.platform.name }}
+                </div>
+            </div>
+
+            <div class="rating-display mb-3">
+                <div class="stars">
+                    {% for star in star_range %}
+                        {% if star <= review.overall_rating %}
+                            <i class="fas fa-star"></i>
+                        {% else %}
+                            <i class="far fa-star"></i>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <span class="fw-bold ms-2">{{ review.overall_rating }}.0/5</span>
+            </div>
+
+            <p class="mb-4">{{ review.comment|truncatewords:30 }}</p>
+
+            <div class="rating-breakdown">
+                <div class="rating-item">
+                    <div class="rating-label">Communication</div>
+                    <div class="rating-value">{{ review.communication_rating }}/5</div>
+                </div>
+                <div class="rating-item">
+                    <div class="rating-label">Timeliness</div>
+                    <div class="rating-value">{{ review.timing_rating }}/5</div>
+                </div>
+                <div class="rating-item">
+                    <div class="rating-label">Quality</div>
+                    <div class="rating-value">{{ review.quality_rating }}/5</div>
+                </div>
+            </div>
+
+            <small class="text-muted"><i class="far fa-calendar-alt me-1"></i>{{ review.created_at|date:"d M Y" }}</small>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+{% if platforms %}
+<section class="section-header">
+    <h2 class="section-title">Platforms</h2>
+    <p class="section-subtitle">
+        Professional platforms I collaborate with and business partners
+    </p>
+</section>
+
+<div class="container mb-5">
+    <div class="row justify-content-center">
+        {% for platform in platforms %}
+        <div class="col-lg-2 col-md-3 col-4 text-center mb-4">
+            <div class="stat-card p-3" style="border-top: 4px solid {{ platform.color }}; height: 100%;">
+                {% if platform.platform_logo %}
+                    {% if platform.link %}
+                        <a href="{{ platform.link }}" target="_blank" rel="noopener noreferrer">
+                            <img src="{{ platform.platform_logo.url }}" alt="{{ platform.name }}" class="img-fluid mb-3" style="max-height: 60px; width: auto;">
+                        </a>
+                    {% else %}
+                        <img src="{{ platform.platform_logo.url }}" alt="{{ platform.name }}" class="img-fluid mb-3" style="max-height: 60px; width: auto;">
+                    {% endif %}
+                {% endif %}
+                <h6 class="fw-bold mb-0" style="color: {{ platform.color }};">{{ platform.name }}</h6>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+<!-- CTA Section - Modern Design -->
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content text-center">
+            <h2 class="display-5 fw-bold mb-4 fade-in">Request a Quote for Your Project</h2>
+            <p class="lead mb-5 fade-in" style="animation-delay: 0.2s;">
+                Get in touch to learn more about my professional services or request a quote for your project.
+            </p>
+            <a href="{% url 'resume:contact' %}" class="btn btn-light btn-lg px-4 py-2 rounded-pill fade-in" style="animation-delay: 0.4s;">
+                <i class="fas fa-paper-plane me-2"></i> Contact Me
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<script>
+// Enhanced animations with GSAP (if available) or fallback to CSS
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if GSAP is loaded, otherwise use CSS animations
+    if (typeof gsap !== 'undefined') {
+        gsap.utils.toArray('.fade-in').forEach((el, i) => {
+            gsap.from(el, {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                delay: i * 0.1,
+                ease: "power2.out"
+            });
+        });
+    } else {
+        // Fallback to Intersection Observer for CSS animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationDelay = '0s';
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+    }
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+});
+</script>
+{% endblock %}

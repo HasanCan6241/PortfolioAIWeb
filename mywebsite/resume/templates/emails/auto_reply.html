@@ -1,0 +1,51 @@
+{% extends 'resume/base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+    .header { background: linear-gradient(135deg, #48bb78, #38a169); color: white; padding: 20px; text-align: center; }
+    .content { background: #f9f9f9; padding: 20px; }
+    .message-box { background: white; padding: 15px; border-radius: 8px; margin: 15px 0; }
+    .info-row { margin: 8px 0; }
+    .label { font-weight: bold; color: #48bb78; }
+    .footer { text-align: center; padding: 20px; color: #666; font-size: 14px; }
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container">
+    <div class="header">
+        <h1>✅ Mesajınız Alındı</h1>
+    </div>
+
+    <div class="content">
+        <p>Merhaba <strong>{{ contact_message.name }}</strong>,</p>
+
+        <p>Mesajınızı başarıyla aldık ve en kısa sürede size geri dönüş yapacağız.
+           İlginiz için teşekkür ederiz!</p>
+
+        <div class="message-box">
+            <div class="label">📋 Mesaj Detayları:</div>
+            <div class="info-row">
+                <span class="label">Konu:</span> {{ contact_message.subject }}
+            </div>
+            <div class="info-row">
+                <span class="label">Tarih:</span> {{ contact_message.created_at|date:"d.m.Y H:i" }}
+            </div>
+        </div>
+
+        <p>Genellikle 24 saat içinde yanıt vermeye çalışıyoruz.
+           Acil bir durum varsa lütfen doğrudan telefon ile iletişime geçin.</p>
+    </div>
+
+    <div class="footer">
+        <p>İyi günler!<br>
+        <strong>{{ profile.name|default:"Website Ekibi" }}</strong></p>
+        <p style="font-size: 12px; color: #999;">
+            Bu otomatik bir yanıttır. Lütfen bu e-postaya yanıt vermeyin.
+        </p>
+    </div>
+</div>
+{% endblock content %}

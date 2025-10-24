@@ -1,0 +1,1809 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Personal Website{% endblock %}</title>
+    {% load static %}
+    <!-- Meta Tags -->
+    <meta name="description" content="{% block description %}Software Engineer - Personal Website{% endblock %}">
+    <meta name="keywords" content="software engineer, developer, portfolio, cv">
+    <meta name="author" content="Hasan Can">
+
+
+    <!-- CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link rel="icon" type="image/webp" href="{% static 'images/Profil.jpg' %}">
+
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --secondary-color: #8b5cf6;
+            --accent-color: #06b6d4;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-dark: #0f172a;
+            --border-color: #e5e7eb;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            --gradient-accent: linear-gradient(135deg, var(--accent-color) 0%, var(--primary-color) 100%);
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            padding-top: 40px;
+        }
+
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-nav .nav-link {
+            color: var(--text-primary);
+            font-weight: 500;
+            margin: 0 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover,
+        .navbar-nav .nav-link.active {
+            background: var(--gradient-primary);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-section {
+            min-height: calc(100vh - 80px);
+            padding-top: 70px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: auto;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%236366f1" fill-opacity="0.05"><circle cx="30" cy="30" r="4"/></g></g></svg>');
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .hero-image {
+            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            box-shadow: var(--shadow-xl);
+            border: 5px solid white;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image:hover {
+            transform: scale(1.05);
+        }
+
+        /* Button Styles */
+        .btn-primary {
+            background: var(--gradient-primary);
+            border: none;
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 10px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .btn-outline-primary {
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 12px 30px;
+            font-weight: 600;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            background: var(--gradient-primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        /* Card Styles */
+        .custom-card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .custom-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .card-gradient {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+       /* Modern Footer Styles */
+        .footer {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1e293b 50%, var(--bg-dark) 100%);
+            color: #e2e8f0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--gradient-primary);
+            opacity: 0.8;
+        }
+
+        .footer::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.03) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .footer-content {
+            position: relative;
+            z-index: 2;
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-main {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h5 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #f8fafc;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h5::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background: var(--gradient-primary);
+            border-radius: 1px;
+        }
+
+        /* İletişim Bölümü */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: #cbd5e1;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 8px;
+        }
+
+        .contact-item:hover {
+            color: var(--accent-color);
+            background: rgba(99, 102, 241, 0.05);
+            transform: translateX(5px);
+        }
+
+        .contact-item i {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        /* Sosyal Medya Bağlantıları */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #cbd5e1;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px) scale(1.05);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .social-links a:hover::before {
+            opacity: 1;
+        }
+
+        .social-links a i {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hızlı Bağlantılar */
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .quick-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quick-link::before {
+            content: '→';
+            font-weight: bold;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .quick-link:hover {
+            color: var(--accent-color);
+            padding-left: 0.5rem;
+        }
+
+        .quick-link:hover::before {
+            transform: translateX(3px);
+            color: var(--accent-color);
+        }
+
+        .general-service-link {
+            color: #cbd5e1;
+            text-decoration: none;
+            padding: 0.5rem 0;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .general-service-link::before {
+            font-weight: bold;
+            color: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .general-service-link:hover {
+            color: var(--accent-color);
+            padding-left: 0.5rem;
+        }
+
+        .general-service-link:hover::before {
+            transform: translateX(3px);
+            color: var(--accent-color);
+        }
+        /* Footer Alt Bölümü */
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .footer-bottom p {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .footer-signature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .footer-signature .heart {
+            color: var(--error-color);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Responsive Tasarım */
+        @media (max-width: 768px) {
+            .footer-main {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .social-links {
+                justify-content: center;
+            }
+
+            .footer-section h5::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-content {
+                padding: 3rem 0 2rem;
+            }
+
+            .social-links a {
+                width: 40px;
+                height: 40px;
+                font-size: 1.1rem;
+            }
+        }
+
+    .chatbot-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+}
+
+.chatbot-toggle {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.chatbot-toggle:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+}
+
+.chatbot-toggle i {
+    font-size: 24px;
+}
+
+.chatbot-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #ff4757;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.chatbot-window {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.chatbot-window.active {
+    display: flex;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.chatbot-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.chatbot-header-info {
+    display: flex;
+    align-items: center;
+}
+
+.chatbot-avatar {
+    width: 36px;
+    height: 36px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.chatbot-avatar i {
+    font-size: 16px;
+}
+
+.chatbot-title h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.chatbot-status {
+    font-size: 12px;
+    opacity: 0.8;
+}
+
+.chatbot-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.chatbot-control-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.chatbot-control-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.chatbot-messages {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+
+.chatbot-messages::-webkit-scrollbar {
+    width: 4px;
+}
+
+.chatbot-messages::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 2px;
+}
+
+.chatbot-welcome,
+.message-container {
+    display: flex;
+    margin-bottom: 16px;
+    align-items: flex-start;
+}
+
+.user-message-container {
+    flex-direction: row-reverse;
+}
+
+.user-message-container .chatbot-avatar {
+    background: #667eea;
+    margin-left: 12px;
+    margin-right: 0;
+}
+
+.chatbot-message {
+    max-width: 70%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    position: relative;
+    word-wrap: break-word;
+}
+
+.bot-message {
+    background: #f1f3f5;
+    color: #333;
+}
+
+.user-message {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.message-time {
+    font-size: 11px;
+    opacity: 0.6;
+    display: block;
+    margin-top: 4px;
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    padding: 0 20px 16px;
+}
+
+.typing-dots {
+    background: #f1f3f5;
+    padding: 12px 16px;
+    border-radius: 18px;
+    display: flex;
+    gap: 4px;
+}
+
+.typing-dots span {
+    width: 6px;
+    height: 6px;
+    background: #999;
+    border-radius: 50%;
+    animation: typing 1.4s infinite ease-in-out;
+}
+
+.typing-dots span:nth-child(1) { animation-delay: 0.0s; }
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typing {
+    0%, 80%, 100% {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+    40% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.chatbot-input-container {
+    padding: 16px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    background: #fafbfc;
+}
+
+.chatbot-input-wrapper {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+#chatbot-input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 24px;
+    outline: none;
+    font-size: 14px;
+    background: white;
+    transition: all 0.2s ease;
+}
+
+#chatbot-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.chatbot-send-btn {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.chatbot-send-btn:hover {
+    transform: scale(1.05);
+}
+
+.chatbot-send-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.chatbot-feedback {
+    padding: 16px;
+    background: #f8f9fa;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.chatbot-feedback p {
+    margin: 0 0 12px;
+    font-size: 14px;
+    color: #666;
+}
+
+.feedback-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.feedback-btn {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    font-size: 16px;
+}
+
+.feedback-btn.positive {
+    background: #28a745;
+    color: white;
+}
+
+.feedback-btn.negative {
+    background: #dc3545;
+    color: white;
+}
+
+.feedback-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .chatbot-container {
+        bottom: 10px;
+        right: 10px;
+    }
+
+    .chatbot-window {
+        width: 320px;
+        height: 450px;
+        bottom: 70px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chatbot-window {
+        width: calc(100vw - 20px);
+        height: 70vh;
+        bottom: 70px;
+        right: -10px;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .chatbot-window {
+        background: #2d3748;
+        border-color: #4a5568;
+    }
+
+    .bot-message {
+        background: #4a5568;
+        color: #e2e8f0;
+    }
+
+    #chatbot-input {
+        background: #4a5568;
+        color: #e2e8f0;
+        border-color: #2d3748;
+    }
+
+    .chatbot-input-container {
+        background: #2d3748;
+        border-color: #4a5568;
+    }
+
+    .chatbot-feedback {
+        background: #2d3748;
+        border-color: #4a5568;
+    }
+}
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'resume:home' %}">
+                <i class="fas fa-code"></i> Hasan Can Çelik
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'resume:home' %}">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'resume:about' %}">
+                            <i class="fas fa-user"></i> About
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'resume:education' %}">
+                            <i class="fas fa-graduation-cap"></i> Education
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'resume:experience' %}">
+                            <i class="fas fa-briefcase"></i> Experience
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'resume:skills' %}">
+                            <i class="fas fa-cogs"></i> Skills
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'resume:projects' %}">
+                            <i class="fas fa-laptop-code"></i> Projects
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'resume:certifications' %}">
+                            <i class="fas fa-certificate"></i> Certifications
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'resume:achievements' %}">
+                            <i class="fas fa-trophy"></i> Achievements
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'resume:freelance_services' %}">
+                            <i class="fas fa-briefcase"></i> Services
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'resume:contact' %}">
+                            <i class="fas fa-envelope"></i> Contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+  <!-- Modern Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-main">
+                    <!-- İletişim Bilgileri -->
+                    <div class="footer-section">
+                        <h5>Contact Information</h5>
+                        <div class="contact-info">
+                            {% if profile %}
+                                {% if profile.email %}
+                                <div class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span>{{ profile.email }}</span>
+                                </div>
+                                {% endif %}
+
+                                {% if profile.phone %}
+                                <div class="contact-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span>{{ profile.phone }}</span>
+                                </div>
+                                {% endif %}
+
+                                {% if profile.location %}
+                                <div class="contact-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>{{ profile.location }}</span>
+                                </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+
+                        <!-- Sosyal Medya ve İletişim Linkleri -->
+                        <div class="social-links">
+                            {% for comm in communications %}
+                                {% if comm.is_public %}
+                                <a href="{% if comm.communication_link %}{{ comm.communication_link }}{% else %}#{% endif %}"
+                                   target="_blank"
+                                   title="{{ comm.title }}">
+                                    {% if comm.icon %}
+                                        <i class="{{ comm.icon }}"></i>
+                                    {% else %}
+                                        {% if comm.type == 'email' %}
+                                            <i class="fas fa-envelope"></i>
+                                        {% elif comm.type == 'phone' %}
+                                            <i class="fas fa-phone"></i>
+                                        {% elif comm.type == 'linkedin' %}
+                                            <i class="fab fa-linkedin-in"></i>
+                                        {% elif comm.type == 'github' %}
+                                            <i class="fab fa-github"></i>
+                                        {% elif comm.type == 'twitter' %}
+                                            <i class="fab fa-twitter"></i>
+                                        {% elif comm.type == 'instagram' %}
+                                            <i class="fab fa-instagram"></i>
+                                        {% elif comm.type == 'website' %}
+                                            <i class="fas fa-globe"></i>
+                                        {% else %}
+                                            <i class="fas fa-link"></i>
+                                        {% endif %}
+                                    {% endif %}
+                                </a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Hızlı Bağlantılar -->
+                    <div class="footer-section">
+                        <h5>Quick Links</h5>
+                        <div class="quick-links">
+                            <a href="{% url 'resume:home' %}" class="quick-link">Home</a>
+                            <a href="{% url 'resume:about' %}" class="quick-link">About Me</a>
+                            <a href="{% url 'resume:projects' %}" class="quick-link">Projects</a>
+                            <a href="{% url 'resume:contact' %}" class="quick-link">Contact</a>
+                            <a href="#" class="quick-link">Privacy Policy</a>
+                        </div>
+                    </div>
+
+                   <!-- Hizmetler -->
+                    <div class="footer-section">
+                        <h5>Services</h5>
+                        <div class="general-service-links">
+                            {% for service in services %}
+                                {% if service.is_active %}
+                                <a href="{% url 'resume:freelance_services' %}" class="general-service-link">
+                                    {% if service.icon %}
+                                        <i class="{{ service.icon }}"></i>
+                                    {% endif %}
+                                    {{ service.name }}
+                                </a>
+                                {% endif %}
+                            {% empty %}
+                                <a href="{% url 'resume:freelance_services' %}" class="general-service-links"><i class="fas fa-code"></i> Web Development</a>
+                                <a href="{% url 'resume:freelance_services' %}" class="general-service-links"><i class="fas fa-mobile-alt"></i> Mobile Applications</a>
+                                <a href="{% url 'resume:freelance_services' %}" class="general-service-links"><i class="fas fa-pencil-ruler"></i> UI/UX Design</a>
+                                <a href="{% url 'resume:freelance_services' %}" class="general-service-links"><i class="fas fa-comments"></i> Consulting</a>
+                                <a href="{% url 'resume:freelance_services' %}" class="general-service-links"><i class="fas fa-chalkboard-teacher"></i> Training & Mentorship</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; 2025 {% if profile.name %}{{ profile.name }}{% else %}Hasan Can Çelik{% endif %}. All rights reserved</p>
+                    <div class="footer-signature">
+                        <span>{% if profile.name %}{{ profile.name }}{% else %}Hasan Can Çelik{% endif %}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bu kodları base.html dosyanızın body kısmının sonuna ekleyin -->
+
+    <!-- Chatbot HTML -->
+    <div id="chatbot-container" class="chatbot-container">
+        <!-- Chatbot Toggle Button -->
+        <div id="chatbot-toggle" class="chatbot-toggle">
+            <i class="fas fa-comments"></i>
+            <span class="chatbot-badge" id="chatbot-badge">1</span>
+        </div>
+
+        <!-- Chatbot Window -->
+        <div id="chatbot-window" class="chatbot-window">
+            <!-- Header -->
+            <div class="chatbot-header">
+                <div class="chatbot-header-info">
+                    <div class="chatbot-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="chatbot-title">
+                        <h4>Personal Assistant</h4>
+                        <span class="chatbot-status">Online</span>
+                    </div>
+                </div>
+                <div class="chatbot-controls">
+                    <button id="chatbot-minimize" class="chatbot-control-btn">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button id="chatbot-close" class="chatbot-control-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Messages -->
+            <div id="chatbot-messages" class="chatbot-messages">
+                <div class="chatbot-welcome">
+                    <div class="chatbot-avatar">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="chatbot-message bot-message">
+                        <p>Hello! How can I assist you?</p>
+                        <span class="message-time">Now</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Typing Indicator -->
+            <div id="typing-indicator" class="typing-indicator" style="display: none;">
+                <div class="chatbot-avatar">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="typing-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- Input -->
+            <div class="chatbot-input-container">
+                <div class="chatbot-input-wrapper">
+                    <input
+                        type="text"
+                        id="chatbot-input"
+                        placeholder="Type your message..."
+                        autocomplete="off"
+                    >
+                    <button id="chatbot-send" class="chatbot-send-btn">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Feedback -->
+            <div id="chatbot-feedback" class="chatbot-feedback" style="display: none;">
+                <p>Was this chat helpful to you?</p>
+                <div class="feedback-buttons">
+                    <button class="feedback-btn positive" data-rating="5">
+                        <i class="fas fa-thumbs-up"></i>
+                    </button>
+                    <button class="feedback-btn negative" data-rating="1">
+                        <i class="fas fa-thumbs-down"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        // Navbar active link
+        const currentLocation = location.pathname;
+        const menuItems = document.querySelectorAll('.navbar-nav .nav-link');
+
+        menuItems.forEach(item => {
+            if(item.getAttribute('href') === currentLocation) {
+                item.classList.add('active');
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Get CSRF token
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+
+{% block extra_js %}
+        <!-- Chatbot JavaScript -->
+    <script>
+    class ChatBot {
+        constructor() {
+            this.sessionId = null;
+            this.isMinimized = false;
+            this.messageCount = 0;
+            this.storageKey = 'chatbot-session-data'; // YENİ
+
+            this.initializeElements();
+            this.bindEvents();
+            this.loadFromStorage();
+
+            // YENİ: Sayfa events
+            this.setupPageEvents();
+        }
+
+        initializeElements() {
+            this.toggleBtn = document.getElementById('chatbot-toggle');
+            this.window = document.getElementById('chatbot-window');
+            this.minimizeBtn = document.getElementById('chatbot-minimize');
+            this.closeBtn = document.getElementById('chatbot-close');
+            this.messagesContainer = document.getElementById('chatbot-messages');
+            this.input = document.getElementById('chatbot-input');
+            this.sendBtn = document.getElementById('chatbot-send');
+            this.typingIndicator = document.getElementById('typing-indicator');
+            this.feedbackContainer = document.getElementById('chatbot-feedback');
+            this.badge = document.getElementById('chatbot-badge');
+        }
+
+        bindEvents() {
+            this.toggleBtn.addEventListener('click', () => this.toggleWindow());
+            this.minimizeBtn.addEventListener('click', () => this.minimizeWindow());
+            this.closeBtn.addEventListener('click', () => this.closeWindow());
+            this.sendBtn.addEventListener('click', () => this.sendMessage());
+
+            this.input.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.sendMessage();
+                }
+            });
+
+            // Feedback buttons
+            document.querySelectorAll('.feedback-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const rating = parseInt(e.currentTarget.dataset.rating);
+                    this.sendFeedback(rating);
+                });
+            });
+
+            // Auto-resize input
+            this.input.addEventListener('input', () => {
+                this.input.style.height = 'auto';
+                this.input.style.height = Math.min(this.input.scrollHeight, 100) + 'px';
+            });
+        }
+
+        // YENİ: Sayfa event'leri ayarla
+        setupPageEvents() {
+            // Sayfa kapatılırken session'ı kaydet
+            window.addEventListener('beforeunload', () => {
+                this.saveToStorage();
+            });
+
+            // Sayfa gizlendiğinde session'ı kaydet (mobil için)
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    this.saveToStorage();
+                } else {
+                    // Sayfa tekrar görünür olduğunda session'ı kontrol et
+                    this.validateSessionOnVisibilityChange();
+                }
+            });
+        }
+
+        // YENİ: Sayfa görünür olduğunda session kontrolü
+        async validateSessionOnVisibilityChange() {
+            if (this.sessionId) {
+                const isValid = await this.validateSession();
+                if (!isValid) {
+                    console.log('Session expired, clearing...');
+                    this.clearStorage();
+                }
+            }
+        }
+
+        // GÜNCELLENMIŞ: Gelişmiş storage yükleme
+        loadFromStorage() {
+            try {
+                // Yeni storage formatını kontrol et
+                const stored = localStorage.getItem(this.storageKey);
+                if (stored) {
+                    const sessionData = JSON.parse(stored);
+
+                    // Session'ın 24 saatten eski olup olmadığını kontrol et
+                    const maxAge = 24 * 60 * 60 * 1000; // 24 saat
+                    const isExpired = (Date.now() - sessionData.timestamp) > maxAge;
+
+                    if (!isExpired && sessionData.sessionId) {
+                        this.sessionId = sessionData.sessionId;
+                        this.isMinimized = sessionData.isMinimized || false;
+
+                        // Önce mesajları yükle
+                        this.restoreMessages();
+
+                        // Backend'de session'ın hala aktif olup olmadığını kontrol et
+                        this.validateSession().then(isValid => {
+                            if (!isValid) {
+                                console.log('Session invalid, clearing...');
+                                this.clearStorage();
+                                // Mesajları temizle
+                                this.clearMessages();
+                            } else {
+                                console.log('Session restored:', this.sessionId);
+                            }
+                        });
+                    } else {
+                        console.log('Session timeout detected. Purging data...');
+                        this.clearStorage();
+                    }
+                } else {
+                    // Eski format için backward compatibility
+                    this.loadLegacyStorage();
+                }
+            } catch (error) {
+                console.error('Storage loading error:', error);
+                this.clearStorage();
+            }
+        }
+
+        // YENİ: Eski storage formatını yükle (backward compatibility)
+        loadLegacyStorage() {
+            const savedSession = localStorage.getItem('chatbot-session');
+            if (savedSession) {
+                this.sessionId = savedSession;
+                console.log('Legacy session loaded:', this.sessionId);
+            }
+
+            const minimized = localStorage.getItem('chatbot-minimized') === 'true';
+            if (minimized) {
+                this.isMinimized = true;
+            }
+
+            // Mesajları her zaman yükle
+            this.restoreMessages();
+        }
+
+        // YENİ: Mesajları geri yükle
+        restoreMessages() {
+            const savedMessages = localStorage.getItem('chatbot-messages');
+            if (savedMessages) {
+                try {
+                    const messages = JSON.parse(savedMessages);
+                    console.log('Loaded message count:', messages.length);
+
+                    // Mevcut mesajları temizle (welcome mesajı hariç)
+                    this.clearMessages(false);
+
+                    // Mesajları sırayla ekle
+                    messages.forEach((msg, index) => {
+                        setTimeout(() => {
+                            this.displayMessage(msg.content, msg.type, false);
+                        }, index * 50); // Mesajlar arasında küçük gecikme
+                    });
+
+                    // Scroll'ı en alta kaydır
+                    setTimeout(() => {
+                        this.scrollToBottom();
+                    }, messages.length * 50 + 100);
+
+                } catch (error) {
+                    console.error('Message loading error:', error);
+                }
+            } else {
+                console.log('No messages found to load.');
+            }
+        }
+
+        // YENİ: Mesajları temizle
+        clearMessages(includeWelcome = true) {
+            if (includeWelcome) {
+                this.messagesContainer.innerHTML = '';
+            } else {
+                // Welcome mesajı dışındaki tüm mesajları kaldır
+                const messages = this.messagesContainer.querySelectorAll('.message-container');
+                messages.forEach(msg => msg.remove());
+            }
+        }
+
+        // GÜNCELLENMIŞ: Gelişmiş storage kaydetme
+        saveToStorage() {
+            if (this.sessionId) {
+                const sessionData = {
+                    sessionId: this.sessionId,
+                    timestamp: Date.now(),
+                    isMinimized: this.isMinimized,
+                    messageCount: this.messageCount
+                };
+                localStorage.setItem(this.storageKey, JSON.stringify(sessionData));
+                console.log('Session saved:', sessionData.sessionId);
+            }
+        }
+
+        // YENİ: Session validation
+        async validateSession() {
+            if (!this.sessionId) return false;
+
+            try {
+                const response = await fetch('/chat/validate-session/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': this.getCSRFToken()
+                    },
+                    body: JSON.stringify({
+                        session_id: this.sessionId
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    return data.valid === true;
+                }
+            } catch (error) {
+                console.error('Session validation error:', error);
+            }
+            return false;
+        }
+
+        // YENİ: Storage temizleme
+        clearStorage() {
+            localStorage.removeItem(this.storageKey);
+            localStorage.removeItem('chatbot-session');
+            localStorage.removeItem('chatbot-messages');
+            localStorage.removeItem('chatbot-minimized');
+            this.sessionId = null;
+            console.log('Storage cleared.');
+        }
+
+        async toggleWindow() {
+            if (this.window.classList.contains('active')) {
+                this.minimizeWindow();
+            } else {
+                this.openWindow();
+            }
+        }
+
+        async openWindow() {
+            this.window.classList.add('active');
+            this.isMinimized = false;
+            this.badge.style.display = 'none';
+            this.messageCount = 0; // Reset unread count
+
+            if (!this.sessionId) {
+                await this.startSession();
+            } else {
+                // Mevcut session'ı validate et
+                const isValid = await this.validateSession();
+                if (!isValid) {
+                    console.log('Session invalid, starting new session...');
+                    this.clearStorage();
+                    await this.startSession();
+                }
+            }
+
+            this.saveToStorage();
+            setTimeout(() => this.input.focus(), 300);
+        }
+
+        minimizeWindow() {
+            this.window.classList.remove('active');
+            this.isMinimized = true;
+            this.saveToStorage();
+        }
+
+        async closeWindow() {
+            this.window.classList.remove('active');
+            this.showFeedback();
+            await this.endSession();
+        }
+
+        // GÜNCELLENMIŞ: startSession
+        async startSession() {
+            try {
+                const response = await fetch('/chat/start-session/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': this.getCSRFToken()
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    this.sessionId = data.session_id;
+                    this.displayMessage(data.message, 'bot');
+                    this.saveToStorage();
+                    console.log('New session started:', this.sessionId);
+                } else {
+                    console.error('Session initialization error:', data.error);
+                }
+            } catch (error) {
+                console.error('Session initialization error:', error);
+            }
+        }
+
+        // GÜNCELLENMIŞ: endSession
+        async endSession() {
+            if (!this.sessionId) return;
+
+            try {
+                await fetch('/chat/end-session/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': this.getCSRFToken()
+                    },
+                    body: JSON.stringify({
+                        session_id: this.sessionId
+                    })
+                });
+
+                this.clearStorage();
+                console.log('Session sonlandırıldı');
+            } catch (error) {
+                console.error('Session ended.', error);
+            }
+        }
+
+        // GÜNCELLENMIŞ: sendMessage
+        async sendMessage() {
+            const message = this.input.value.trim();
+            if (!message) return;
+
+            // Session kontrolü - yoksa yeni başlat
+            if (!this.sessionId) {
+                console.log('Session not found, initializing new session...');
+                await this.startSession();
+
+                if (!this.sessionId) {
+                    this.displayMessage('Failed to initialize session. Please refresh the page.', 'bot');
+                    return;
+                }
+            }
+
+            this.displayMessage(message, 'user');
+            this.input.value = '';
+            this.input.style.height = 'auto';
+
+            this.showTypingIndicator();
+            this.sendBtn.disabled = true;
+
+            try {
+                const response = await fetch('/chat/send-message/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': this.getCSRFToken()
+                    },
+                    body: JSON.stringify({
+                        session_id: this.sessionId,
+                        message: message
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+
+                this.hideTypingIndicator();
+                this.sendBtn.disabled = false;
+
+                if (data.success) {
+                    this.displayMessage(data.response, 'bot');
+                    this.saveToStorage(); // Başarılı mesaj sonrası kaydet
+                } else {
+                    // Session hatası kontrolü
+                    if (data.error && (data.error.includes('Invalid session') || data.error.includes('session'))) {
+                        console.log('Session error, starting new session...');
+                        this.clearStorage();
+                        await this.startSession();
+
+                        if (this.sessionId) {
+                            // Mesajı tekrar gönder
+                            this.input.value = message;
+                            return this.sendMessage();
+                        }
+                    }
+
+                    this.displayMessage('Sorry, an error occurred. Please try again.', 'bot');
+                    console.error('Message send error:', data.error);
+                }
+            } catch (error) {
+                this.hideTypingIndicator();
+                this.sendBtn.disabled = false;
+
+                console.error('Message send error:', error);
+
+                // Network hatası vs session hatası ayırt et
+                if (error.message.includes('404')) {
+                    this.displayMessage('Service unavailable. Refreshing page...', 'bot');
+                    setTimeout(() => window.location.reload(), 2000);
+                } else {
+                    this.displayMessage('Connection error. Please try again.', 'bot');
+                }
+            }
+        }
+
+        displayMessage(content, type, save = true) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message-container ${type === 'user' ? 'user-message-container' : ''}`;
+
+            const avatarDiv = document.createElement('div');
+            avatarDiv.className = 'chatbot-avatar';
+            avatarDiv.innerHTML = type === 'user' ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
+
+            const messageContent = document.createElement('div');
+            messageContent.className = `chatbot-message ${type}-message`;
+
+            const messageText = document.createElement('p');
+            messageText.innerHTML = this.formatMessage(content);
+
+            const timeSpan = document.createElement('span');
+            timeSpan.className = 'message-time';
+            timeSpan.textContent = new Date().toLocaleTimeString('tr-TR', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+
+            messageContent.appendChild(messageText);
+            messageContent.appendChild(timeSpan);
+            messageDiv.appendChild(avatarDiv);
+            messageDiv.appendChild(messageContent);
+
+            // Welcome mesajını kaldır
+            if (this.messagesContainer.querySelector('.chatbot-welcome') && type === 'bot') {
+                this.messagesContainer.querySelector('.chatbot-welcome').remove();
+            }
+
+            this.messagesContainer.appendChild(messageDiv);
+            this.scrollToBottom();
+
+            if (save) {
+                this.saveMessage(content, type);
+            }
+
+            // Unread message badge
+            if (type === 'bot' && this.isMinimized) {
+                this.messageCount++;
+                this.badge.textContent = this.messageCount;
+                this.badge.style.display = 'flex';
+            }
+        }
+
+        formatMessage(content) {
+            // URL'leri link yap
+            const urlRegex = /(https?:\/\/[^\s]+)/g;
+            content = content.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+
+            // Email adreslerini link yap
+            const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9_-]+)/g;
+            content = content.replace(emailRegex, '<a href="mailto:$1">$1</a>');
+
+            // Satır sonlarını br tag'e çevir
+            content = content.replace(/\n/g, '<br>');
+
+            return content;
+        }
+
+        saveMessage(content, type) {
+            let messages = [];
+            const saved = localStorage.getItem('chatbot-messages');
+            if (saved) {
+                messages = JSON.parse(saved);
+            }
+
+            messages.push({ content, type, timestamp: Date.now() });
+
+            // Son 50 mesajı sakla
+            if (messages.length > 50) {
+                messages = messages.slice(-50);
+            }
+
+            localStorage.setItem('chatbot-messages', JSON.stringify(messages));
+        }
+
+        showTypingIndicator() {
+            this.typingIndicator.style.display = 'flex';
+            this.scrollToBottom();
+        }
+
+        hideTypingIndicator() {
+            this.typingIndicator.style.display = 'none';
+        }
+
+        scrollToBottom() {
+            setTimeout(() => {
+                this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+            }, 100);
+        }
+
+        showFeedback() {
+            this.feedbackContainer.style.display = 'block';
+        }
+
+        async sendFeedback(rating) {
+            if (!this.sessionId) return;
+
+            try {
+                await fetch('/chat/feedback/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': this.getCSRFToken()
+                    },
+                    body: JSON.stringify({
+                        session_id: this.sessionId,
+                        rating: rating
+                    })
+                });
+
+                this.feedbackContainer.innerHTML = '<p>Thank you for your feedback! 🙏</p>';
+                setTimeout(() => {
+                    this.feedbackContainer.style.display = 'none';
+                }, 2000);
+
+            } catch (error) {
+                console.error('Error submitting feedback:', error);
+            }
+        }
+
+        getCSRFToken() {
+            const cookie = document.cookie
+                .split('; ')
+                .find(row => row.startsWith('csrftoken='));
+            return cookie ? cookie.split('=')[1] : '';
+        }
+    }
+
+    // Initialize chatbot when DOM is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        window.chatbot = new ChatBot();
+
+        // Auto-open chatbot after 3 seconds for first-time visitors
+        if (!localStorage.getItem('chatbot-visited')) {
+            setTimeout(() => {
+                window.chatbot.openWindow();
+                localStorage.setItem('chatbot-visited', 'true');
+            }, 3000);
+        }
+    });
+
+    // GÜNCELLENMIŞ: Handle page unload - session'ı kaydet ama sonlandırma
+    window.addEventListener('beforeunload', function() {
+        if (window.chatbot) {
+            window.chatbot.saveToStorage();
+        }
+    });
+    </script>
+    {% endblock %}
+</body>
+</html>

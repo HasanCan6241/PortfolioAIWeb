@@ -1,0 +1,319 @@
+import json
+import uuid
+import time
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+from django.utils import timezone
+from django.core.mail import send_mail
+from django.conf import settings
+from .models import (
+    ChatSession, ChatMessage, ChatFeedback,
+    Profile, About, Experience, Project, Service, Skill, Education
+)
+import google.generativeai as genai
+
+# Gemini API yapılandırması
+genai.configure(api_key=settings.GEMINI_API_KEY)  # settings.py'de tanımlamalısınız
+model = genai.GenerativeModel('gemini-2.0-flash-exp')
+
+
+def get_personal_context():
+    """Kişisel bilgileri chatbot için hazırla"""
+    try:
+        profile = Profile.objects.first()
+        about = About.objects.first()
+        experiences = Experience.objects.all().order_by('-start_date')[:5]
+        projects = Project.objects.filter(is_featured=True)[:5]
+        services = Service.objects.filter(is_active=True)[:5]
+        skills = Skill.objects.all()[:10]
+        educations = Education.objects.all().order_by('-start_date')[:3]
+
+        context = f"""
+Sen bir yazılım mühendisinin kişisel web sitesindeki AI asistanısın. Aşağıdaki bilgileri kullanarak kullanıcıların sorularına cevap ver:
+
+KİŞİSEL BİLGİLER:
+- İsim: {profile.name if profile else 'Belirtilmemiş'}
+- Pozisyon: {profile.title if profile else 'Yazılım Mühendisi'}
+- Konum: {profile.location if profile else 'Belirtilmemiş'}
+- Email: {profile.email if profile else 'Belirtilmemiş'}
+
+HAKKINDA:
+{about.about if about else 'Henüz hakkında bilgisi eklenmemiş.'}
+
+SON DENEYİMLER:
+"""
+
+        for exp in experiences:
+            context += f"- {exp.job_title} @ {exp.company} ({exp.start_date} - {'Devam ediyor' if exp.is_current else exp.end_date})\n"
+
+        context += "\nÖNE ÇIKAN PROJELER:\n"
+        for project in projects:
+            context += f"- {project.title}: {project.short_description or project.description[:100]}...\n"
+
+        context += "\nHİZMETLER:\n"
+        for service in services:
+            context += f"- {service.name}: {service.description[:100]}...\n"
+
+        context += "\nYETENEKLER:\n"
+        for skill in skills:
+            context += f"- {skill.name} ({skill.level if skill.level else 'Seviye belirtilmemiş'})\n"
+
+        context += "\nEĞİTİM:\n"
+        for education in educations:
+            context += f"- {education.title} @ {education.school}\n"
+
+        context += """
+ÖNEMLI:
+1. Sadece verilen bilgiler doğrultusunda cevap ver
+2. Bilmediğin konularda "Bu konuda detaylı bilgim yok" de
+3. Türkçe ve samimi bir dille konuş
+4. Kısa ve öz cevaplar ver
+5. İletişim bilgileri sorulursa profile bilgilerini kullan
+"""
+
+        return context
+
+    except Exception as e:
+        return "Kişisel bilgiler yüklenirken hata oluştu."
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def start_chat_session(request):
+    """Yeni chat oturumu başlat"""
+    try:
+        session_id = str(uuid.uuid4())
+        user_ip = request.META.get('REMOTE_ADDR')
+        user_agent = request.META.get('HTTP_USER_AGENT', '')[:500]  # Limit to 500 chars
+
+        session = ChatSession.objects.create(
+            session_id=session_id,
+            user_ip=user_ip,
+            user_agent=user_agent
+        )
+
+        # Hoşgeldin mesajı
+        welcome_message = """
+Merhaba! 👋
+Ben bu web sitesinin sahibi hakkında bilgi veren AI asistanıyım.
+Size nasıl yardımcı olabilirim?
+
+- Kişisel bilgiler
+- İş deneyimleri
+- Projeler ve çalışmalar
+- Eğitim geçmişi
+- Teknik yetenekler
+- İletişim bilgileri
+
+Bu konularda sorularınızı cevaplayabilirim!
+        """
+
+        ChatMessage.objects.create(
+            session=session,
+            message_type='bot',
+            content=welcome_message.strip(),
+            model_used='system'
+        )
+
+        return JsonResponse({
+            'success': True,
+            'session_id': session_id,
+            'welcome_message': welcome_message.strip()
+        })
+
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': f'Oturum başlatılamadı: {str(e)}'
+        }, status=500)
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def send_message(request):
+    """Kullanıcı mesajını işle ve bot cevabı döndür"""
+    try:
+        data = json.loads(request.body)
+        session_id = data.get('session_id')
+        user_message = data.get('message', '').strip()
+
+        if not session_id or not user_message:
+            return JsonResponse({
+                'success': False,
+                'error': 'Geçersiz veri'
+            }, status=400)
+
+        # Session kontrolü
+        try:
+            session = ChatSession.objects.get(session_id=session_id, is_active=True)
+        except ChatSession.DoesNotExist:
+            return JsonResponse({
+                'success': False,
+                'error': 'Geçersiz oturum'
+            }, status=400)
+
+        # Kullanıcı mesajını kaydet
+        ChatMessage.objects.create(
+            session=session,
+            message_type='user',
+            content=user_message
+        )
+
+        # Gemini API ile cevap üret
+        try:
+            start_time = time.time()
+
+            # Kişisel context + kullanıcı mesajı
+            personal_context = get_personal_context()
+            full_prompt = f"{personal_context}\n\nKullanıcı Sorusu: {user_message}\n\nCevap:"
+
+            response = model.generate_content(full_prompt)
+            bot_response = response.text
+
+            # Süre hesapla
+            response_time = time.time() - start_time
+
+            # Token bilgisi (yaklaşık)
+            tokens_used = len(full_prompt.split()) + len(bot_response.split())
+
+        except Exception as api_error:
+            print(f"Gemini API Error: {api_error}")
+            bot_response = """
+Üzgünüm, şu anda teknik bir sorun yaşıyorum.
+Lütfen biraz sonra tekrar deneyin veya doğrudan iletişim bilgilerini kullanarak ulaşın.
+            """.strip()
+            response_time = 0
+            tokens_used = 0
+
+        # Bot cevabını kaydet
+        ChatMessage.objects.create(
+            session=session,
+            message_type='bot',
+            content=bot_response,
+            model_used='gemini-2.0-flash-exp',
+            tokens_used=tokens_used,
+            response_time=response_time
+        )
+
+        # Session mesaj sayısını güncelle
+        session.message_count += 2  # user + bot
+        session.save()
+
+        return JsonResponse({
+            'success': True,
+            'response': bot_response,
+            'response_time': round(response_time, 2)
+        })
+
+    except json.JSONDecodeError:
+        return JsonResponse({
+            'success': False,
+            'error': 'Geçersiz JSON verisi'
+        }, status=400)
+    except Exception as e:
+        print(f"Send message error: {e}")
+        return JsonResponse({
+            'success': False,
+            'error': 'Mesaj gönderilemedi'
+        }, status=500)
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def submit_feedback(request):
+    """Chat geri bildirimi kaydet"""
+    try:
+        data = json.loads(request.body)
+        session_id = data.get('session_id')
+        rating = data.get('rating')
+        feedback_text = data.get('feedback_text', '')
+
+        if not session_id:
+            return JsonResponse({
+                'success': False,
+                'error': 'Session ID gerekli'
+            }, status=400)
+
+        try:
+            session = ChatSession.objects.get(session_id=session_id)
+        except ChatSession.DoesNotExist:
+            return JsonResponse({
+                'success': False,
+                'error': 'Geçersiz oturum'
+            }, status=400)
+
+        ChatFeedback.objects.create(
+            session=session,
+            rating=rating,
+            feedback_text=feedback_text
+        )
+
+        return JsonResponse({
+            'success': True,
+            'message': 'Geri bildiriminiz kaydedildi. Teşekkürler!'
+        })
+
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': 'Geri bildirim gönderilemedi'
+        }, status=500)
+
+
+@csrf_exempt
+@require_http_methods(["POST"])
+def send_contact_message(request):
+    """İletişim formu mesajını gönder"""
+    try:
+        data = json.loads(request.body)
+        name = data.get('name', '').strip()
+        email = data.get('email', '').strip()
+        subject = data.get('subject', '').strip()
+        message = data.get('message', '').strip()
+
+        if not all([name, email, subject, message]):
+            return JsonResponse({
+                'success': False,
+                'error': 'Tüm alanlar zorunludur'
+            }, status=400)
+
+        # Email gönder (settings.py'de email yapılandırması gerekli)
+        try:
+            email_subject = f"Web Sitesi İletişim: {subject}"
+            email_message = f"""
+Yeni iletişim mesajı:
+
+İsim: {name}
+Email: {email}
+Konu: {subject}
+
+Mesaj:
+{message}
+            """
+
+            send_mail(
+                email_subject,
+                email_message,
+                settings.DEFAULT_FROM_EMAIL,
+                [settings.CONTACT_EMAIL],  # settings.py'de tanımlamalısınız
+                fail_silently=False,
+            )
+
+            return JsonResponse({
+                'success': True,
+                'message': 'Mesajınız başarıyla gönderildi!'
+            })
+
+        except Exception as email_error:
+            print(f"Email sending error: {email_error}")
+            return JsonResponse({
+                'success': True,  # Kullanıcıya başarılı göster ama log'a kaydet
+                'message': 'Mesajınız alındı, en kısa sürede dönüş yapacağım!'
+            })
+
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': 'Mesaj gönderilemedi'
+        }, status=500)
